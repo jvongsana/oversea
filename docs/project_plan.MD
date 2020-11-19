@@ -15,8 +15,8 @@
   - As a homemaker, I want to track my personal expenses to ensure my children have a college fund.
   - As a traveler, I want to see how trips affect my monthly finances to know how expensive or affordable they are.
   - As a pet owner, I want to know how much of my monthly expenses are pet-related to understand the costs of having one and estimate how much to save.
-3. Wireframes (in docs/design)
-4. ERBs (in docs/design)
+3. Wireframes (in `docs/design`)
+4. ERBs (in `docs/design`)
 5. Stack Choices
   - FE
     - HTML
