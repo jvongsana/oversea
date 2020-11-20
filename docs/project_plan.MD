@@ -22,8 +22,10 @@
     - HTML
     - SCSS
     - React.js
+    - Axios
   - BE
     - Node.js
-    - Axios
+    - Express.js
   - DB
     - PostgreSQL
+    - ElephantSQL
