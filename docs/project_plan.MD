@@ -2,7 +2,7 @@
 1. Project Description
   - Title: Oversea
   - Description:
-    - Oversea is a personal expenses tracker web app that allows them to log their expenses and visualize their monthly finances
+    - Oversea is a personal expenses tracker web app that allows users to log their expenses and visualize their monthly finances
   - Audience:
     - For users who want to better plan or are struggling planning their monthly finances
   - Members:
