@@ -1,0 +1,1 @@
+INSERT INTO transaction_types (modifer) VALUES (1);

@@ -1,0 +1,1 @@
+INSERT INTO transactions (category_id, account_id,transaction_type_id, payee,amount_cents ) VALUES (1,1,1,'macdonalds',30);
