@@ -26,19 +26,17 @@ const testData = [
 
 export default function AccountReport() {
   const classes = useStyles();
+  
   return (
-    <React.Fragment>
+    <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
-      <Container maxWidth="xl" className={classes.partial} >
-        <h1>Account Report Filler Text</h1>
-        {testData.map((item, idx) => (
+      <h1>Account Report Filler Text</h1>
+      {testData.map((item, idx) => (
         <div className={classes.progressBar}>
           <p>Category Name</p>
           <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
         </div>
-        
       ))}
-      </Container>
-    </React.Fragment>
+    </Container>
   );
 }
