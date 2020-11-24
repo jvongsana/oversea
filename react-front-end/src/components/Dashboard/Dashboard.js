@@ -46,24 +46,28 @@ export default function AccountReport() {
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
       <h1>Accounts Overview</h1>
-      <h3>Total Expenses: ${getTotal(testData)}</h3>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Category</TableCell>
-              <TableCell align="right">Expense</TableCell>
+              <TableCell><b>Color</b></TableCell>
+              <TableCell align="right"><b>Category</b></TableCell>
+              <TableCell align="right"><b>Expense</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {testData.map(item => (
               <TableRow key={item.category}>
-                <TableCell component="th" scope="row">
-                  {item.category}
-                </TableCell>
+                <TableCell style={{ backgroundColor: item.bgcolor }} />
+                <TableCell align="right">{item.category}</TableCell>
                 <TableCell align="right">${item.value.toFixed(2)}</TableCell>
               </TableRow>
             ))}
+            <TableRow>
+              <TableCell />
+              <TableCell align="right"><b>TOTAL</b></TableCell>
+              <TableCell align="right">${getTotal(testData)}</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
