@@ -15,13 +15,21 @@ const useStyles = makeStyles({
 });
 
 const testData = [
-  { bgcolor: "#6a1b9a", categoryName: "Groceries", completed: 60 },
-  { bgcolor: "#00695c", categoryName: "Rent", completed: 30 },
-  { bgcolor: "#ef6c00", categoryName: "Utilities", completed: 53 },
+  { bgcolor: "#6a1b9a", categoryName: "Groceries", completed: 60.27 },
+  { bgcolor: "#00695c", categoryName: "Rent", completed: 30.65 },
+  { bgcolor: "#ef6c00", categoryName: "Utilities", completed: 53.45 },
 ];
 
 export default function AccountReport() {
   const classes = useStyles();
+
+  const sectionLabeler = dataEntry => {
+    const percentage = Math.round(dataEntry.percentage) + "%";
+    const value = dataEntry.value;
+    const title = dataEntry.title;
+
+    return `${percentage}\n${value}\n${title}`;
+  };
 
   return (
     <Container maxWidth="xl" className={classes.partial} >
@@ -33,6 +41,8 @@ export default function AccountReport() {
           value: item.completed,
           color: item.bgcolor,
         }))}
+        labelStyle={{ fontSize: '2px' }}
+        label={({ dataEntry }) => sectionLabeler(dataEntry)}
       />
     </Container>
   );
