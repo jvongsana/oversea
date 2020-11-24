@@ -28,7 +28,7 @@ export default function AccountReport() {
     const value = dataEntry.value;
     const title = dataEntry.title;
 
-    return `${percentage}\n${value}\n${title}`;
+    return `${percentage}\n$${value}\n${title}`;
   };
 
   return (
@@ -43,6 +43,7 @@ export default function AccountReport() {
         }))}
         labelStyle={{ fontSize: '5px' }}
         label={({ dataEntry }) => sectionLabeler(dataEntry)}
+        segmentsShift={0.5}
         animate
       />
     </Container>
