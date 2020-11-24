@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   partial: {
     backgroundColor: '#a6d0ef',
-    height: 'auto',
+    height: '100vh',
     width: '80vw',
     borderRadius: '20px',
     padding: '24px 48px 48px 48px'
@@ -41,8 +41,9 @@ export default function AccountReport() {
           value: item.completed,
           color: item.bgcolor,
         }))}
-        labelStyle={{ fontSize: '2px' }}
+        labelStyle={{ fontSize: '5px' }}
         label={({ dataEntry }) => sectionLabeler(dataEntry)}
+        animate
       />
     </Container>
   );
