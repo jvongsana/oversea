@@ -24,9 +24,9 @@ const testData = [
   { bgcolor: "#ef6c00", completed: 53 },
 ];
 
-export default function AccountReport() {
+export default function AccountReport(props) {
   const classes = useStyles();
-  
+  console.log('prop', props);
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />

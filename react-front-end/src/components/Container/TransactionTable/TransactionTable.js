@@ -47,7 +47,7 @@ const headCells = [
   { id: 'amount', label: 'Amount' }
 ]
 
-export default function AccountReport() {
+export default function AccountReport(props) {
   const classes = useStyles();
 
   return (
