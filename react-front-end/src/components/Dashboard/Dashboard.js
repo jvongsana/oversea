@@ -26,7 +26,7 @@ export default function AccountReport() {
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
-      <h1>Overview</h1>
+      <h1>Accounts Overview</h1>
       <PieChart
         data={testData.map(item => ({
           title: item.categoryName,
