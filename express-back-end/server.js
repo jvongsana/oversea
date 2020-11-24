@@ -16,35 +16,20 @@ const bodyparser = require("body-parser");
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
 App.use(Express.static('public'));
+App.use(cors());
+App.use(helmet());
+App.use(bodyparser.json());
 
 //Sample GET route
-App.get('/api/data', (req, res) => res.json({
-  message: "Seems to work!",
-}));
+App.use("/api", users(db));
+App.use("/api", accounts(db));
+App.use("/api", transactions(db));
+App.use("/api", transaction_types(db));
+App.use("/api", categories(db));
 
- 
-  
-module.exports = function application() {
-  App.use(cors());
-  App.use(helmet());
-  App.use(bodyparser.json());
-  App.use("/api", users(db));
-  App.use("/api", accounts(db));
-  App.use("/api", transactions(db));
-  App.use("/api", transaction_types(db));
-  App.use("/api", categories(db));
-
-  App.close = function() {
-    return db.end();
-  };
-
-  return App;
-}
-
-
-  
-
-
-App.listen(PORT, () => {
+const server = App.listen(PORT, () => {
   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
 });
+
+
+module.exports= App;
