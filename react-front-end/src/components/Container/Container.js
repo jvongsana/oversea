@@ -14,14 +14,20 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Container() {
+export default function Container(props) {
   const classes = useStyles();
+  console.log(props)
   return (
     <React.Fragment>
       <CssBaseline />
       <Partial maxWidth="xl" className={classes.partial}>
           <AccountReport />
-          <TransactionTable />
+          <TransactionTable 
+            account={props.account}
+            transactions={props.transactions}
+            categories={props.categories}
+            transaction_types={props.transaction_type}
+          />
       </Partial>
     </React.Fragment>
   );

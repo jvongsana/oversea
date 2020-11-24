@@ -24,17 +24,17 @@ const testData = [
   { bgcolor: "#ef6c00", completed: 53 },
 ];
 
-export default function AccountReport(props) {
+export default function AccountReport() {
   const classes = useStyles();
-  console.log('prop', props);
+
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
       <h1>Account Report Filler Text</h1>
-      {testData.map((item, idx) => (
+      {testData.map((item) => (
         <div className={classes.progressBar}>
           <p>Category Name</p>
-          <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+          <ProgressBar bgcolor={item.bgcolor} completed={item.completed} />
         </div>
       ))}
     </Container>
