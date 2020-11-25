@@ -25,7 +25,8 @@ CREATE TABLE categories (
 
 CREATE TABLE transaction_types (
   id SERIAL PRIMARY KEY NOT NULL,
-  modifer INTEGER
+  modifer INTEGER,
+  type_name VARCHAR(255)
 );
 
 CREATE TABLE transactions (

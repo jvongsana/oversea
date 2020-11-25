@@ -7,6 +7,7 @@ import {
   ListItemText,
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import AddAccount from '../AddAccount/AddAccount';
 
 
 const useStyles = makeStyles({
@@ -58,7 +59,8 @@ function Drawer(props) {
             <ListItemText primary={account.name} />
         </ListItem>
         ))}
-      </List>  
+      </List> 
+      <AddAccount /> 
     </Sidebar> 
   );
 }
