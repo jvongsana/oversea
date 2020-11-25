@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 });
 
 const color = '#4a91bb';
-const progress = 60;
 
 export default function AccountReport(props) {
   const classes = useStyles();

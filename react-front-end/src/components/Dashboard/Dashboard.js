@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
   partial: {
     backgroundColor: '#a6d0ef',
-    height: '100vh',
+    height: 'auto',
     width: '80vw',
     borderRadius: '20px',
     padding: '24px 48px 48px 48px'
@@ -30,17 +30,17 @@ const testData = [
   { bgcolor: "#ef6c00", category: "Utilities", value: 53.45 },
 ];
 
+const getTotal = data => {
+  let total = 0;
+  data.forEach(item => {
+    total += item.value;
+  });
+
+  return total;
+};
+
 export default function AccountReport() {
   const classes = useStyles();
-
-  const getTotal = data => {
-    let total = 0;
-    data.forEach(item => {
-      total += item.value;
-    });
-
-    return total;
-  };
 
   return (
     <Container maxWidth="xl" className={classes.partial} >
