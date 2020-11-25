@@ -19,7 +19,6 @@ function getTransactionsByAccount(state, account) {
 
 function getCategoryById(state, id) {
   for (const category of state) {
-    console.log(category)
     if (category.id === id) {
       return category.name
     }
@@ -28,7 +27,6 @@ function getCategoryById(state, id) {
 
 function getTransactionTypeById(state, id) {
   for (const type of state) {
-    console.log('type', type)
     if (type.id === id) {
       return type.type_name;
     }
@@ -39,5 +37,53 @@ function getAmountDollars(amount){
   return `$${(amount/100).toFixed(2)}`
 }
 
+function getCategoryForAccount(state, id) {
+  let accountCategories = [];
 
-export { getTransactionsByAccount, getCategoryById, getTransactionTypeById, getAmountDollars }
+  for (const category of state) {
+    if (category.id === id) {
+      accountCategories.push(category);
+    }
+  }
+
+  return accountCategories;
+}
+
+function getTotalCategorySpending(transactions) {
+  let sum = 0;
+
+  for (const transaction of transactions) {
+    if (transaction.transaction_type_id === 2) {  
+      sum += transaction.amount_cents
+    }
+  }
+
+  return sum 
+}
+
+
+function getPercentCategoryExpense(state, category) {
+  let categorizedTransactions = []
+  let totalExpenses = 0;
+  
+  for (const transaction of state){
+    if (transaction.transaction_type_id === 2) {
+      totalExpenses += transaction.amount_cents;
+      if (transaction.category_id === category.id) {
+        categorizedTransactions.push(transaction)
+      }
+    }
+  }
+  
+  const totalCategorySpending = getTotalCategorySpending(categorizedTransactions);
+  const percentage = ((totalCategorySpending/totalExpenses) * 100).toFixed(2);
+  
+  return percentage;
+}
+
+export {getTransactionsByAccount, 
+        getCategoryById, 
+        getTransactionTypeById, 
+        getAmountDollars, 
+        getCategoryForAccount, 
+        getPercentCategoryExpense}
