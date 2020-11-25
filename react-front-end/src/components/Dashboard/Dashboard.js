@@ -13,14 +13,17 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    width: "89%",
   },
   partial: {
     backgroundColor: '#a6d0ef',
     height: '100vh',
-    width: '80vw',
+    width: '60vw',
     borderRadius: '20px',
     padding: '24px 48px 48px 48px'
+  },
+  tableAndGraphContainer: {
+    display: "flex"
   }
 });
 
@@ -30,58 +33,61 @@ const testData = [
   { bgcolor: "#ef6c00", category: "Utilities", value: 53.45 },
 ];
 
-export default function AccountReport() {
+const getTotal = data => {
+  let total = 0;
+  data.forEach(item => {
+    total += item.value;
+  });
+
+  return total;
+};
+
+export default function Dashboard() {
   const classes = useStyles();
-
-  const getTotal = data => {
-    let total = 0;
-    data.forEach(item => {
-      total += item.value;
-    });
-
-    return total;
-  };
 
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
       <h1>Accounts Overview</h1>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell><b>Color</b></TableCell>
-              <TableCell align="right"><b>Category</b></TableCell>
-              <TableCell align="right"><b>Expense</b></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {testData.map(item => (
-              <TableRow key={item.category}>
-                <TableCell style={{ backgroundColor: item.bgcolor }} />
-                <TableCell align="right">{item.category}</TableCell>
-                <TableCell align="right">${item.value.toFixed(2)}</TableCell>
+      <div className={classes.tableAndGraphContainer}>
+        <TableContainer className={classes.table} component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center"><b>Color</b></TableCell>
+                <TableCell align="center"><b>Category</b></TableCell>
+                <TableCell align="center"><b>Expense</b></TableCell>
               </TableRow>
-            ))}
-            <TableRow>
-              <TableCell />
-              <TableCell align="right"><b>TOTAL</b></TableCell>
-              <TableCell align="right">${getTotal(testData)}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <PieChart
-        data={testData.map(item => ({
-          title: item.category,
-          value: item.value,
-          color: item.bgcolor,
-        }))}
-        labelStyle={{ fontSize: '5px' }}
-        label={({ dataEntry }) => (Math.round(dataEntry.percentage) + "%")}
-        segmentsShift={0.5}
-        animate
-      />
+            </TableHead>
+            <TableBody>
+              {testData.map(item => (
+                <TableRow key={item.category}>
+                  <TableCell style={{ backgroundColor: item.bgcolor }} />
+                  <TableCell align="left">{item.category}</TableCell>
+                  <TableCell align="right">${item.value.toFixed(2)}</TableCell>
+                </TableRow>
+              ))}
+              <TableRow>
+                <TableCell />
+                <TableCell align="left"><b>TOTAL</b></TableCell>
+                <TableCell align="right">${getTotal(testData)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <PieChart
+          data={testData.map(item => ({
+            title: item.category,
+            value: item.value,
+            color: item.bgcolor,
+          }))}
+          radius={40}
+          segmentsShift={0.5}
+          labelStyle={{ fontSize: '5px' }}
+          label={({ dataEntry }) => (Math.round(dataEntry.percentage) + "%")}
+          animate
+        />
+      </div>
     </Container>
   );
 }
