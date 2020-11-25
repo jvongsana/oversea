@@ -11,7 +11,7 @@ import axios from "axios";
 import './AddAccount.scss'
 
 
-export default function FormDialog() {
+export default function AddAccount() {
   const useStyles = makeStyles({
     button: {
       backgroundColor:'#01234c',

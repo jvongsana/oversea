@@ -34,11 +34,12 @@ const headCells = [
 
 export default function AccountReport(props) {
   const classes = useStyles();
-
+  console.log('props', props);
   return (
       <Container maxWidth="xl" className={classes.partial} >
         <CssBaseline />
         <h1>{props.account} Transactions</h1>
+        {/* <AddTransaction /> */}
         <AddCategories />
          <Table className={classes.root}>
             <TableHead>

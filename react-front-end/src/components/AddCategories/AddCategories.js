@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,7 +11,7 @@ import axios from "axios";
 import './AddCategories.scss'
 
 
-export default function FormDialog() {
+export default function AddCategories() {
 
   const useStyles = makeStyles({
   
@@ -27,7 +27,7 @@ export default function FormDialog() {
       padding: '0 1em'
     }
   });
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   //handling open/close functionality for popup modal
   const handleClickOpen = () => {
@@ -40,7 +40,7 @@ export default function FormDialog() {
 
   
   // setting state for textfield
-  const [input, setInput] = React.useState(0);
+  const [input, setInput] = useState(0);
   const handleChangeInput = (event) => {
     setInput(event.target.value);
   }

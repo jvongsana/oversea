@@ -77,7 +77,11 @@ function getPercentCategoryExpense(state, category) {
   
   const totalCategorySpending = getTotalCategorySpending(categorizedTransactions);
   const percentage = ((totalCategorySpending/totalExpenses) * 100).toFixed(2);
-  
+
+  if (isNaN(percentage)) {
+    return 0;
+  }
+
   return percentage;
 }
 
