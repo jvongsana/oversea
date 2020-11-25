@@ -4,6 +4,7 @@ import './AccountReport.scss';
 import { Container } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import ProgressBar from './ProgressBars/ProgressBar';
+import { getPercentCategoryExpense } from '../../../helpers/selectors'
 
 const useStyles = makeStyles({
   partial: {
@@ -18,23 +19,19 @@ const useStyles = makeStyles({
   }
 });
 
-const testData = [
-  { bgcolor: "#6a1b9a", completed: 60 },
-  { bgcolor: "#00695c", completed: 30 },
-  { bgcolor: "#ef6c00", completed: 53 },
-];
+const color = '#4a91bb';
 
-export default function AccountReport() {
+export default function AccountReport(props) {
   const classes = useStyles();
-  
+
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
-      <h1>Account Report Filler Text</h1>
-      {testData.map((item, idx) => (
+      <h1>{props.account} Account Expense Report</h1>
+      {props.categories.map((category) => (
         <div className={classes.progressBar}>
-          <p>Category Name</p>
-          <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+          <p>{category.name}</p>
+          <ProgressBar bgcolor={color} completed={getPercentCategoryExpense(props.transactions, category)} />
         </div>
       ))}
     </Container>

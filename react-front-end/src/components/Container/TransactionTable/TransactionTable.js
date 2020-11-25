@@ -3,7 +3,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './TransactionTable.scss';
 import { Container, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors'
+import AddCategories from '../../AddCategories/AddCategories';
 
 const useStyles = makeStyles({
   partial: {
@@ -16,29 +17,13 @@ const useStyles = makeStyles({
   },
   root: {
     backgroundColor: 'white',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    marginTop: '24px'
   },
   head: {
     fontWeight:'700'
   }
 });
-
-function createData(id, payee, category, transaction_type, amount) {
-  return { id, payee, category, transaction_type, amount };
-}
-
-const rows = [
-  createData(1, 'Mc Donald\'s', 'Restaurants', 'Outflow', 10.49),
-  createData(2, 'Wal-Mart', 'Groceries', 'Outflow', 34.63),
-  createData(3, 'Shopper\'s Drug Mart', 'Household', 'Outflow', 9.94),
-  createData(4, 'Yogen Fruz', 'Restaurants', 'Outflow', 7.64),
-  createData(5, 'Superstore', 'Groceries', 'Outflow', 103.92),
-  createData(6, 'H&M', 'Clothing', 'Outflow', 7.38),
-  createData(7, 'Uniqlo', 'Income', 'Inflow', 924.28),
-  createData(8, 'Apple', 'Electronics', 'Inflow', 2431,51),
-  createData(9, 'Samsung', 'Electronics', 'Outflow', 213,42),
-  createData(10, 'Amazon', 'Household', 'Outflow', 19.99)
-];
 
 const headCells = [
   { id: 'payee', label: 'Payee' },
@@ -47,13 +32,15 @@ const headCells = [
   { id: 'amount', label: 'Amount' }
 ]
 
-export default function AccountReport() {
+export default function AccountReport(props) {
   const classes = useStyles();
-
+  
   return (
       <Container maxWidth="xl" className={classes.partial} >
         <CssBaseline />
-        <h1>Transaction Table Filler Text</h1>
+        <h1>{props.account} Transactions</h1>
+        {/* <AddTransaction /> */}
+        <AddCategories />
          <Table className={classes.root}>
             <TableHead>
               <TableRow>
@@ -68,12 +55,12 @@ export default function AccountReport() {
             </TableHead>
           <TableBody>
             {
-              rows.map(item => 
-                (<TableRow key={item.id}>
-                  <TableCell>{item.payee}</TableCell>
-                  <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.transaction_type}</TableCell>
-                  <TableCell>{item.amount}</TableCell>
+              props.transactions.map(transaction => 
+                (<TableRow key={transaction.id}>
+                  <TableCell>{transaction.payee}</TableCell>
+                  <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
+                  <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
+                  <TableCell>{getAmountDollars(transaction.amount_cents)}</TableCell>
                 </TableRow>
                 )
               )

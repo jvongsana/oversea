@@ -17,8 +17,8 @@ const useStyles = makeStyles({
   },
   partial: {
     backgroundColor: '#a6d0ef',
-    height: '100vh',
-    width: '60vw',
+    height: 'auto',
+    width: '80vw',
     borderRadius: '20px',
     padding: '24px 48px 48px 48px'
   },
