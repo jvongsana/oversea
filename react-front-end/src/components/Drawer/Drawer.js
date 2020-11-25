@@ -63,6 +63,7 @@ function Drawer(props) {
         account={props.account}
         accounts={props.accounts}
         setAccount={props.setAccount}
+        addAccount={props.addAccount}
       /> 
     </Sidebar> 
   );
