@@ -36,7 +36,6 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
   const classes = useStyles();
-
   const setAccount = function(account) {
     return props.setAccount(account)
   }
@@ -60,7 +59,11 @@ function Drawer(props) {
         </ListItem>
         ))}
       </List> 
-      <AddAccount /> 
+      <AddAccount 
+        account={props.account}
+        accounts={props.accounts}
+        setAccount={props.setAccount}
+      /> 
     </Sidebar> 
   );
 }

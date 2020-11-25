@@ -16,7 +16,6 @@ const useStyles = makeStyles({
 export default function App(props) {
   const classes = useStyles();
 
-  
   const [state, setState] = useState({
     account: "Checking",
     accounts: [],
@@ -24,6 +23,7 @@ export default function App(props) {
     transactions: [],
     transaction_types: []
   });
+
   const setAccount = account => setState({ ...state, account });
   const transactions = getTransactionsByAccount(state, state.account);
 

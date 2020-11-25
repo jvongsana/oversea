@@ -34,7 +34,7 @@ const headCells = [
 
 export default function AccountReport(props) {
   const classes = useStyles();
-  console.log('props', props);
+  
   return (
       <Container maxWidth="xl" className={classes.partial} >
         <CssBaseline />

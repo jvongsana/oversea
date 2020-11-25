@@ -11,7 +11,7 @@ import axios from "axios";
 import './AddAccount.scss'
 
 
-export default function AddAccount() {
+export default function AddAccount(props) {
   const useStyles = makeStyles({
     button: {
       backgroundColor:'#01234c',
@@ -49,6 +49,7 @@ export default function AddAccount() {
     .then((res) => {
       setInput("");
       handleClose();
+
     })
     .catch((err) => console.log("error is ", err));
   }
