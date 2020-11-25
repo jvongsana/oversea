@@ -4,6 +4,8 @@ import { Container as Partial } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountReport  from '../AccountReport/AccountReport';
 import TransactionTable from '../TransactionTable/TransactionTable';
+import AddAccount from '../AddAccount/AddAccount';
+import AddCategories from '../AddCategories/AddCategories';
 import './Container.scss';
 
 const useStyles = makeStyles({
@@ -20,8 +22,12 @@ export default function Container() {
     <React.Fragment>
       <CssBaseline />
       <Partial maxWidth="xl" className={classes.partial}>
+          <AddAccount />
+          <AddCategories />
           <AccountReport />
           <TransactionTable />
+         
+
       </Partial>
     </React.Fragment>
   );

@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 function Drawer() {
   const classes = useStyles();
-  const itemsList = ['Reports', 'Chequings Account', 'Savings Account', 'RBC Credit Card'];
+  const itemsList = ['Reports', 'Chequings Account', 'Savings Account', 'RBC Credit Card', '+ Add Account'];
     return (
           <Sidebar variant="permanent" className={classes.drawer} classes={{ paper: classes.paper }}>
           <img
@@ -47,7 +47,7 @@ function Drawer() {
           <List>
             {itemsList.map((text, index) => (
               <ListItem button key={text} classes={{ root: classes.button }} >
-                <ListItemText primary={text} />
+                  <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>  
