@@ -29,3 +29,24 @@
   - DB
     - PostgreSQL
     - ElephantSQL
+6. Routes
+  - FE
+    - entry-point / only page for SPA
+      - GET http://localhost:3000
+  - BE
+    - gets all table records
+      - GET  http://localhost:8080/api/users
+      - GET  http://localhost:8080/api/categories
+      - GET  http://localhost:8080/api/accounts
+      - GET  http://localhost:8080/api/transaction_types
+      - GET  http://localhost:8080/api/transactions
+    - posts new table record
+      - POST  http://localhost:8080/api/categories
+      - POST  http://localhost:8080/api/accounts
+      - POST  http://localhost:8080/api/transactions 
+    - updates a table record
+      - PUT  http://localhost:8080/api/accounts/:id
+      - PUT  http://localhost:8080/api/transactions/:id
+    - deletes a table record
+      - DELETE  http://localhost:8080/api/accounts/:id
+      - DELETE  http://localhost:8080/api/transactions/:id
