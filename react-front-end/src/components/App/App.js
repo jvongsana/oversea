@@ -37,7 +37,7 @@ export default function App(props) {
       }
     }
 
-    setState({ ...state, account: "" });
+    setState({ ...state, account: newAccountName });
     console.log(`Account renamed: ${accountName} => ${newAccountName}`);
     // return axios.put(`/api/accounts/${accountID}`, { newAccountName })
     //   .then(() => {

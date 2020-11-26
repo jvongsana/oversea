@@ -33,7 +33,7 @@ export default function AccountReport(props) {
           variant="contained"
           color="primary"
           startIcon={<EditIcon />}
-          onClick={() => onRename("test")}
+          onClick={() => onRename(account, "test")}
         >
           Edit
       </Button>
