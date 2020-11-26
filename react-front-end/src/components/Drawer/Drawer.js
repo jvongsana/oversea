@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Drawer.scss';
-import { 
-  Drawer as Sidebar, 
-  List, 
-  ListItem,
-  ListItemText,
-} from '@material-ui/core/';
+import { Drawer as Sidebar } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import AddAccount from '../AddAccount/AddAccount';
-
+import AccountListItems from '../AccountListItems/AccountListItems';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControl from '@material-ui/core/FormControl';
+import {useApplicationData} from "../../hooks/useApplicationData";
+import {getID} from '../../helpers/selectors'
 
 const useStyles = makeStyles({
   drawer: {
@@ -22,6 +25,7 @@ const useStyles = makeStyles({
   },
   button: {
     padding: '10px',
+    backgroundColor:'#01234c',
     borderRadius: '10px',
     textAlign: 'center',
     "&:hover": {
@@ -29,6 +33,10 @@ const useStyles = makeStyles({
       padding: '10px',
       borderRadius: '20px'
     }
+  },
+  formControl: {
+    width: 500,
+    padding: '0 1em'
   }
 });
 
@@ -37,7 +45,38 @@ const useStyles = makeStyles({
 function Drawer(props) {
   const classes = useStyles();
 
+  const {
+    state,
+    addAccount
+  } = useApplicationData()
   
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState(0);
+
+  //handling open/close functionality for popup modal
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // setting state for textfield
+  const handleChangeInput = (event) => {
+    setInput(event.target.value);
+  }
+  console.log('rerendered');
+  //function to add account to db
+  const addNewAccount = () => {
+    const id = getID(state);
+    const user_id = 1;
+
+    addAccount(id, user_id, input)
+    setInput("");
+    handleClose();
+  }
+
   return (
     <Sidebar variant="permanent" className={classes.drawer} classes={{ paper: classes.paper }}>
       <img
@@ -47,21 +86,41 @@ function Drawer(props) {
         width="100px"
         height="100px"
       />
-      <List>
-        <ListItem button key="root" classes={{ root: classes.button }} >
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-        {props.accounts.map((account) => (
-          <ListItem button key={account.id} classes={{ root: classes.button }} onClick={() => props.setAccount(account.name)}>
-            <ListItemText primary={account.name} />
-        </ListItem>
-        ))}
-      </List> 
-      <AddAccount 
+      <AccountListItems 
+        accounts={state.accounts}
+        setAccount={props.setAccount}
+      />
+      {/* <AddAccount 
         account={props.account}
         accounts={props.accounts}
         setAccount={props.setAccount}
-      /> 
+      />  */}
+      <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
+       + Accounts
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+        <DialogTitle id="form-dialog-title">Add Account</DialogTitle>
+        <DialogContent >
+          <h3>Enter Account Name</h3>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <TextField
+              id="outlined-secondary"
+              label="Ex:- Saving"
+              variant="outlined"
+              color="primary" 
+              onChange={handleChangeInput}
+            /> 
+          </FormControl>
+        </DialogContent>
+        <DialogActions class={classes.root}>
+          <Button onClick={handleClose} color="primary" className={classes.button}>
+            Cancel
+          </Button>
+          <Button onClick={addNewAccount} color="primary" className={classes.button}>
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Sidebar> 
   );
 }

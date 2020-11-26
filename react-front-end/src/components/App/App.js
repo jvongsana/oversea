@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Drawer from '../Drawer/Drawer';
 import './App.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '../Container/Container';
-import axios from 'axios';
+// import axios from 'axios';
 import { getTransactionsByAccount } from '../../helpers/selectors'
+import {useApplicationData} from "../../hooks/useApplicationData";
 
 const useStyles = makeStyles({
   container: {
@@ -16,34 +17,40 @@ const useStyles = makeStyles({
 export default function App(props) {
   const classes = useStyles();
 
-  const [state, setState] = useState({
-    account: "Checking",
-    accounts: [],
-    categories: [],
-    transactions: [],
-    transaction_types: []
-  });
+  const {
+    state,
+    setAccount
+  } = useApplicationData()
 
-  const setAccount = account => setState({ ...state, account });
+
+  // const [state, setState] = useState({
+  //   account: "Checking",
+  //   accounts: [],
+  //   categories: [],
+  //   transactions: [],
+  //   transaction_types: []
+  // });
+
+  // const setAccount = account => setState({ ...state, account });
   
   const transactions = getTransactionsByAccount(state, state.account);
 
-  useEffect(() => {
-    Promise.all([
-      axios.get(`/api/accounts`),
-      axios.get(`/api/categories`),
-      axios.get(`/api/transactions`),
-      axios.get(`/api/transaction_types`)
-    ]).then((all) => {
-      setState(prev => ({
-        ...prev,
-        accounts: all[0].data,
-        categories: all[1].data,
-        transactions: all[2].data,
-        transaction_types: all[3].data
-      }))
-    })
-  }, []);
+  // useEffect(() => {
+  //   Promise.all([
+  //     axios.get(`/api/accounts`),
+  //     axios.get(`/api/categories`),
+  //     axios.get(`/api/transactions`),
+  //     axios.get(`/api/transaction_types`)
+  //   ]).then((all) => {
+  //     setState(prev => ({
+  //       ...prev,
+  //       accounts: all[0].data,
+  //       categories: all[1].data,
+  //       transactions: all[2].data,
+  //       transaction_types: all[3].data
+  //     }))
+  //   })
+  // }, []);
 
   return (
       <div className={classes.container}>
