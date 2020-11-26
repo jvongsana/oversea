@@ -28,7 +28,6 @@ export default function Container(props) {
           account={props.account}
           transactions={props.transactions}
           categories={props.categories}
-          transaction_types={props.transaction_type}
         /> 
         <TransactionTable 
           account={props.account}
