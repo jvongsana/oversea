@@ -25,6 +25,7 @@ export default function App(props) {
   });
 
   const setAccount = account => setState({ ...state, account });
+  
   const transactions = getTransactionsByAccount(state, state.account);
 
   useEffect(() => {

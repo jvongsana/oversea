@@ -36,10 +36,8 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
   const classes = useStyles();
-  const setAccount = function(account) {
-    return props.setAccount(account)
-  }
 
+  
   return (
     <Sidebar variant="permanent" className={classes.drawer} classes={{ paper: classes.paper }}>
       <img
@@ -54,7 +52,7 @@ function Drawer(props) {
           <ListItemText primary="Dashboard" />
         </ListItem>
         {props.accounts.map((account) => (
-          <ListItem button key={account.id} classes={{ root: classes.button }} onClick={() => setAccount(account.name)}>
+          <ListItem button key={account.id} classes={{ root: classes.button }} onClick={() => props.setAccount(account.name)}>
             <ListItemText primary={account.name} />
         </ListItem>
         ))}
