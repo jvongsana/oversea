@@ -2,9 +2,10 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Container as Partial } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import AccountReport  from './AccountReport/AccountReport';
+import AccountReport from './AccountReport/AccountReport';
 import TransactionTable from './TransactionTable/TransactionTable';
 // import Dashboard from '../Dashboard/Dashboard';
+import AccountSettings from './AccountSettings/AccountSettings';
 import './Container.scss';
 
 const useStyles = makeStyles({
@@ -24,18 +25,23 @@ export default function Container(props) {
       <CssBaseline />
       <Partial maxWidth="xl" className={classes.partial}>
         {/* <Dashboard /> */}
-        <AccountReport 
+        {/* <AccountReport
           account={props.account}
           transactions={props.transactions}
           categories={props.categories}
           transaction_types={props.transaction_type}
-        /> 
-        <TransactionTable 
+        />
+        <TransactionTable
           account={props.account}
           transactions={props.transactions}
           categories={props.categories}
           transaction_types={props.transaction_type}
-        />   
+        /> */}
+        <AccountSettings
+          account={props.account}
+          onRename={props.onRenameAccount}
+          onDelete={props.onDeleteAccount}
+        />
       </Partial>
     </React.Fragment>
   );
