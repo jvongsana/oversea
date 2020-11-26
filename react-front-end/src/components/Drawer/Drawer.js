@@ -39,7 +39,6 @@ function Drawer(props) {
   const setAccount = function(account) {
     return props.setAccount(account)
   }
-
   return (
     <Sidebar variant="permanent" className={classes.drawer} classes={{ paper: classes.paper }}>
       <img

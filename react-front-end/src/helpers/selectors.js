@@ -25,10 +25,36 @@ function getCategoryById(state, id) {
   }
 }
 
+function getCategoryByName(state, name) {
+  for (const category of state) {
+    if (category.name === name) {
+      return category.id
+    }
+  }
+}
+
+
+
 function getTransactionTypeById(state, id) {
   for (const type of state) {
     if (type.id === id) {
       return type.type_name;
+    }
+  }
+}
+
+function getTransactionTypeByName(state, name) {
+  for (const type of state) {
+    if (type.type_name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getAccountByName(state, name) {
+  for (const type of state) {
+    if (type.name === name) {
+      return type.id;
     }
   }
 }
@@ -90,4 +116,7 @@ export {getTransactionsByAccount,
         getTransactionTypeById, 
         getAmountDollars, 
         getCategoryForAccount, 
-        getPercentCategoryExpense}
+        getPercentCategoryExpense,
+        getCategoryByName,
+        getTransactionTypeByName,
+        getAccountByName}

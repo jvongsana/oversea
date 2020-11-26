@@ -25,8 +25,14 @@ export default function App(props) {
   });
 
   const setAccount = account => setState({ ...state, account });
-  const transactions = getTransactionsByAccount(state, state.account);
+  
+  // const setAccount = account => {
+    
+  //   setState({ ...state, accounts:[...state.accounts,account]})
+  // }
 
+  const transactions = getTransactionsByAccount(state, state.account);
+  
   useEffect(() => {
     Promise.all([
       axios.get(`/api/accounts`),
@@ -43,8 +49,9 @@ export default function App(props) {
       }))
     })
   }, []);
-
+  
   return (
+    
       <div className={classes.container}>
         <Drawer 
           accounts={state.accounts}
@@ -55,7 +62,9 @@ export default function App(props) {
           categories={state.categories}
           account={state.account}
           transactions={transactions} 
-          transaction_type={state.transaction_types} 
+          transaction_type={state.transaction_types}
+          accounts={state.accounts}
+
         />
       </div>
      

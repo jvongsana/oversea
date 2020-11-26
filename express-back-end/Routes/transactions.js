@@ -13,7 +13,7 @@ module.exports = db => {
   });
 
   router.post("/transactions", (request,response) => {
-    const{category_id,account_id,transaction_type_id,payee,amount_cents} = request.body;
+    const{category_id,account_id,transaction_type_id,payee,amount_cents} = request.body.data;
     const values = [category_id,account_id,transaction_type_id,payee,amount_cents];
     const queryString = `INSERT into transactions(category_id,account_id,transaction_type_id,payee,amount_cents) VALUES($1,$2,$3,$4,$5)`
     db.query(queryString,values)

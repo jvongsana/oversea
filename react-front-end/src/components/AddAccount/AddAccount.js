@@ -47,8 +47,12 @@ export default function AddAccount(props) {
     const url = 'http://localhost:8080/api/accounts';
     axios.post(url, {name:input})
     .then((res) => {
+      
+      //props.setAccount({id:20,user_id:1,name:input});
+      props.setAccount(input);
       setInput("");
       handleClose();
+      
 
     })
     .catch((err) => console.log("error is ", err));

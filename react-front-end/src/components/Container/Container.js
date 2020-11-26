@@ -35,6 +35,7 @@ export default function Container(props) {
           transactions={props.transactions}
           categories={props.categories}
           transaction_types={props.transaction_type}
+          accounts={props.accounts}
         />   
       </Partial>
     </React.Fragment>
