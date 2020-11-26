@@ -5,8 +5,7 @@ const SET_TRANSACTION = "SET_TRANSACTION";
 const SET_NEW_ACCOUNT = "SET_NEW_ACCOUNT";
 
 const reducer = function(state, action) {
-  console.log('state', state)
-  console.log('action', action)
+
   switch (action.type) {
     case SET_ACCOUNT:
       return {
