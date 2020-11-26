@@ -3,18 +3,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Container } from '@material-ui/core/';
 import { PieChart } from 'react-minimal-pie-chart';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import LegendsTable from './LegendsTable/LegendsTable';
 
 const useStyles = makeStyles({
-  table: {
-    width: "89%",
-  },
   partial: {
     backgroundColor: '#a6d0ef',
     height: 'auto',
@@ -33,15 +24,6 @@ const testData = [
   { bgcolor: "#ef6c00", category: "Utilities", value: 53.45 },
 ];
 
-const getTotal = data => {
-  let total = 0;
-  data.forEach(item => {
-    total += item.value;
-  });
-
-  return total;
-};
-
 export default function Dashboard() {
   const classes = useStyles();
 
@@ -50,31 +32,7 @@ export default function Dashboard() {
       <CssBaseline />
       <h1>Accounts Overview</h1>
       <div className={classes.tableAndGraphContainer}>
-        <TableContainer className={classes.table} component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center"><b>Color</b></TableCell>
-                <TableCell align="center"><b>Category</b></TableCell>
-                <TableCell align="center"><b>Expense</b></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {testData.map(item => (
-                <TableRow key={item.category}>
-                  <TableCell style={{ backgroundColor: item.bgcolor }} />
-                  <TableCell align="left">{item.category}</TableCell>
-                  <TableCell align="right">${item.value.toFixed(2)}</TableCell>
-                </TableRow>
-              ))}
-              <TableRow>
-                <TableCell />
-                <TableCell align="left"><b>TOTAL</b></TableCell>
-                <TableCell align="right">${getTotal(testData)}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <LegendsTable />
         <PieChart
           data={testData.map(item => ({
             title: item.category,
