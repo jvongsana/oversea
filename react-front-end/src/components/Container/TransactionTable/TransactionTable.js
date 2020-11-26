@@ -274,7 +274,7 @@ export default function TransactionTable(props) {
 
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-  console.log('t rerender', props)
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
 

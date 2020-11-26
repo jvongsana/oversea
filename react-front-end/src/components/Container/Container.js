@@ -13,7 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import './Container.scss';
 import {useApplicationData} from "../../hooks/useApplicationData";
-import { getTransactionsByAccount } from '../../helpers/selectors';
 
 
 const useStyles = makeStyles({
@@ -59,7 +58,7 @@ export default function Container(props) {
   const handleChangeInput = (event) => {
     setInput(event.target.value);
   }
-  console.log('container', props)
+
   //function to add account to db
   const addNewCategory = () => {
     addCategory(input)
@@ -75,7 +74,7 @@ export default function Container(props) {
         <AccountReport 
           account={props.account}
           transactions={props.transactions}
-          categories={props.categories}
+          categories={state.categories}
         /> 
         <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
             Add Categories
@@ -105,7 +104,7 @@ export default function Container(props) {
             </Dialog>
         <TransactionTable 
           account={props.account}
-          transactions={getTransactionsByAccount(props.transactions, props.account)}
+          transactions={props.transactions}
           categories={props.categories}
           transaction_types={props.transaction_type}
         />
