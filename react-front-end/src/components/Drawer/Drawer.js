@@ -70,7 +70,7 @@ function Drawer(props) {
   const addNewAccount = () => {
     const user_id = 1;
 
-    addAccount( user_id, input)
+    addAccount(user_id, input)
     setInput("");
     handleClose();
   }
@@ -88,11 +88,6 @@ function Drawer(props) {
         accounts={state.accounts}
         setAccount={props.setAccount}
       />
-      {/* <AddAccount 
-        account={props.account}
-        accounts={props.accounts}
-        setAccount={props.setAccount}
-      />  */}
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
        + Accounts
       </Button>
