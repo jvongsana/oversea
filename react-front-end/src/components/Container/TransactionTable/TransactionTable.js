@@ -4,6 +4,7 @@ import './TransactionTable.scss';
 import { Container, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors'
+import AddCategories from '../../AddCategories/AddCategories';
 
 const useStyles = makeStyles({
   partial: {
@@ -16,7 +17,8 @@ const useStyles = makeStyles({
   },
   root: {
     backgroundColor: 'white',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    marginTop: '24px'
   },
   head: {
     fontWeight:'700'
@@ -32,11 +34,13 @@ const headCells = [
 
 export default function AccountReport(props) {
   const classes = useStyles();
-
+  
   return (
       <Container maxWidth="xl" className={classes.partial} >
         <CssBaseline />
         <h1>{props.account} Transactions</h1>
+        {/* <AddTransaction /> */}
+        <AddCategories />
          <Table className={classes.root}>
             <TableHead>
               <TableRow>
