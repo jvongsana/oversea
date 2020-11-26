@@ -44,7 +44,6 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
   const classes = useStyles();
-
   const {
     state,
     addAccount

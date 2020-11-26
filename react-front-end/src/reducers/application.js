@@ -2,12 +2,18 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_ACCOUNT = "SET_ACCOUNT";
 const SET_CATEGORY = "SET_CATEGORY";
 const SET_TRANSACTION = "SET_TRANSACTION";
+const SET_NEW_ACCOUNT = "SET_NEW_ACCOUNT";
 
 const reducer = function(state, action) {
   console.log('state', state)
   console.log('action', action)
   switch (action.type) {
     case SET_ACCOUNT:
+      return {
+        ...state,
+        account: action.account
+      }
+    case SET_NEW_ACCOUNT:
       return { 
         ...state, 
         accounts: [...state.accounts, { user_id: action.user_id, name: action.name}]
@@ -28,4 +34,4 @@ const reducer = function(state, action) {
 } 
 
 export default reducer;
-export { SET_APPLICATION_DATA, SET_ACCOUNT, SET_CATEGORY, SET_TRANSACTION };
+export { SET_APPLICATION_DATA, SET_ACCOUNT, SET_CATEGORY, SET_TRANSACTION, SET_NEW_ACCOUNT };

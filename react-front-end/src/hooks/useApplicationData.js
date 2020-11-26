@@ -2,6 +2,7 @@ import {useEffect, useReducer } from 'react';
 import axios from "axios";
 import reducer, {
   SET_ACCOUNT,
+  SET_NEW_ACCOUNT,
   SET_APPLICATION_DATA,
 } from "../reducers/application";
 
@@ -14,7 +15,13 @@ export function useApplicationData() {
     transaction_types: []
   });
 
-  const setAccount = account => dispatch({ ...state, account });
+  const setAccount = account => {
+    dispatch({ 
+      type: SET_ACCOUNT,
+      ...state, 
+      account 
+    });
+  };
 
   useEffect(() => {
     Promise.all([
@@ -38,7 +45,7 @@ export function useApplicationData() {
     axios.post(url, { user_id: user_id, name: name})
     .then((res) => {
       dispatch({
-        type: SET_ACCOUNT,
+        type: SET_NEW_ACCOUNT,
         user_id,
         name
       });
