@@ -69,10 +69,9 @@ function Drawer(props) {
   console.log('rerendered');
   //function to add account to db
   const addNewAccount = () => {
-    const id = getID(state);
     const user_id = 1;
 
-    addAccount(id, user_id, input)
+    addAccount( user_id, input)
     setInput("");
     handleClose();
   }

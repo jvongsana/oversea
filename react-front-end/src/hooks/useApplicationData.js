@@ -33,13 +33,12 @@ export function useApplicationData() {
     })
   }, []);
 
-  const addAccount = (id, user_id, name) => {
+  const addAccount = (user_id, name) => {
     const url = 'http://localhost:8080/api/accounts';
-    axios.post(url, {id: id, user_id: user_id, name: name})
+    axios.post(url, { user_id: user_id, name: name})
     .then((res) => {
       dispatch({
         type: SET_ACCOUNT,
-        id,
         user_id,
         name
       });

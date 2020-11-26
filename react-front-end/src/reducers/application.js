@@ -10,7 +10,7 @@ const reducer = function(state, action) {
     case SET_ACCOUNT:
       return { 
         ...state, 
-        accounts: [...state.accounts, {id: action.id, user_id: action.user_id, name: action.name}]
+        accounts: [...state.accounts, { user_id: action.user_id, name: action.name}]
       }
     case SET_APPLICATION_DATA:
       return {
