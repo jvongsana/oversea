@@ -19,7 +19,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors'
-// import AddCategories from '../../AddCategories/AddCategories'
+
 
 
 function descendingComparator(a, b, orderBy) {
@@ -274,7 +274,7 @@ export default function TransactionTable(props) {
 
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-
+  console.log('t rerender', props)
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
 

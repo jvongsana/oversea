@@ -20,11 +20,10 @@ const useStyles = makeStyles({
     }
   }
 });
-
+console.log('rerender list')
 function AccountListItems(props) {
   const classes = useStyles();
-  console.log('props', props)
-  console.log('accounts', props.accounts)
+console.log('a props', props)
   return ( 
       <List>
         <ListItem button key="root" classes={{ root: classes.button }} >

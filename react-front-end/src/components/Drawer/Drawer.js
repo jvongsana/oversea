@@ -73,6 +73,7 @@ function Drawer(props) {
     handleClose();
   }
 
+  
   return (
     <Sidebar variant="permanent" className={classes.drawer} classes={{ paper: classes.paper }}>
       <img

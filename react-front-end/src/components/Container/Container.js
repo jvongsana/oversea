@@ -12,7 +12,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import './Container.scss';
-import {useApplicationData} from "../../hooks/useApplicationData"
+import {useApplicationData} from "../../hooks/useApplicationData";
+import { getTransactionsByAccount } from '../../helpers/selectors';
 
 
 const useStyles = makeStyles({
@@ -58,7 +59,7 @@ export default function Container(props) {
   const handleChangeInput = (event) => {
     setInput(event.target.value);
   }
-
+  console.log('container', props)
   //function to add account to db
   const addNewCategory = () => {
     addCategory(input)
@@ -72,9 +73,9 @@ export default function Container(props) {
       <Partial maxWidth="xl" className={classes.partial}>
         {/* <Dashboard /> */}
         <AccountReport 
-          account={state.account}
-          transactions={state.transactions}
-          categories={state.categories}
+          account={props.account}
+          transactions={props.transactions}
+          categories={props.categories}
         /> 
         <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
             Add Categories
@@ -103,9 +104,9 @@ export default function Container(props) {
               </DialogActions>
             </Dialog>
         <TransactionTable 
-          account={state.account}
-          transactions={state.transactions}
-          categories={state.categories}
+          account={props.account}
+          transactions={getTransactionsByAccount(props.transactions, props.account)}
+          categories={props.categories}
           transaction_types={props.transaction_type}
         />
       </Partial>
