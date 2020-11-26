@@ -30,13 +30,15 @@ export default function Container(props) {
           transactions={props.transactions}
           categories={props.categories}
           transaction_types={props.transaction_type}
-        />
+        />*/}
         <TransactionTable
           account={props.account}
           transactions={props.transactions}
           categories={props.categories}
           transaction_types={props.transaction_type}
-        /> */}
+          onEdit={props.onEditTransaction}
+          onDelete={props.onDeleteTransaction}
+        />
         <AccountSettings
           account={props.account}
           onRename={props.onRenameAccount}

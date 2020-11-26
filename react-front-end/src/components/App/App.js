@@ -25,19 +25,22 @@ export default function App(props) {
   });
 
   const setAccount = account => setState({ ...state, account });
+
+  console.log(state);
   const transactions = getTransactionsByAccount(state, state.account);
 
   const renameAccount = (accountName, newAccountName) => {
-    const accounts = state.accounts;
+    const accounts = { ...state.accounts };
     let accountID;
 
     for (const account of accounts) {
       if (account.name === accountName) {
         accountID = account.id;
+        account.name = newAccountName;
       }
     }
 
-    setState({ ...state, account: newAccountName });
+    setState(prev => ({ ...prev, account: newAccountName }));
     console.log(`Account renamed: ${accountName} => ${newAccountName}`);
     // return axios.put(`/api/accounts/${accountID}`, { newAccountName })
     //   .then(() => {
@@ -47,16 +50,17 @@ export default function App(props) {
   };
 
   const deleteAccount = accountName => {
-    const accounts = state.accounts;
+    const accounts = { ...state.accounts };
     let accountID;
 
-    for (const account of accounts) {
+    for (let account of accounts) {
       if (account.name === accountName) {
         accountID = account.id;
+        account = null;
       }
     }
 
-    setState({ ...state, account: "" });
+    setState(prev => ({ ...prev, account: "" }));
     console.log(`Account deleted: ${accountName}`);
     // return axios.delete(`/api/accounts/${accountID}`)
     //   .then(() => {
@@ -64,6 +68,64 @@ export default function App(props) {
     //     console.log(`Account deleted: ${accountName}`);
     //   });
   };
+
+  const editTransaction = (id, payee, amount, categoryID, transactionType) => {
+    const transactions = { ...state.transactions };
+
+    for (const transaction of transactions) {
+      if (transaction.id === id) {
+        transaction.payee = payee;
+        transaction.amount_cents = amount * 100;
+        transaction.category_id = categoryID;
+        transaction.transaction_type_id = transactionType;
+      }
+    }
+
+    setState(prev => ({ ...prev, transactions }));
+    console.log(`Transaction id: ${id} edited payee to: ${payee}, amount to: ${amount * 100}, category_id to: ${categoryID}, transaction_type_id to: ${transactionType}`);
+    // return axios.put(`/api/accounts/${accountID}`, { newAccountName })
+    //   .then(() => {
+    //     const accounts = { ...state.accounts };
+
+    //     for (const account of accounts) {
+    //       if (account.id === id) {
+    //         account.name = name;
+    //         account.amount = amount;
+    //       }
+    //     }
+
+    //     setState(prev => ({ ...state, accounts }));
+    //     console.log(`Account renamed: ${accountName} => ${newAccountName}`);
+    //   });
+  };
+
+  const deleteTransaction = id => {
+    const transactions = { ...state.transactions };
+
+    for (let transaction of transactions) {
+      if (transaction.id === id) {
+        transaction = null;
+      }
+    }
+
+    setState(prev => ({ ...prev, transactions }));
+    console.log(`Transaction id: ${id} deleted.`);
+    // return axios.put(`/api/accounts/${accountID}`, { newAccountName })
+    //   .then(() => {
+    //     const accounts = { ...state.accounts };
+
+    //     for (const account of accounts) {
+    //       if (account.id === id) {
+    //         account.name = name;
+    //         account.amount = amount;
+    //       }
+    //     }
+
+    //     setState(prev => ({ ...state, accounts }));
+    //     console.log(`Account renamed: ${accountName} => ${newAccountName}`);
+    //   });
+  };
+
 
   useEffect(() => {
     Promise.all([
@@ -94,6 +156,8 @@ export default function App(props) {
         account={state.account}
         transactions={transactions}
         transaction_type={state.transaction_types}
+        onEditTransaction={editTransaction}
+        onDeleteTransaction={deleteTransaction}
         onRenameAccount={renameAccount}
         onDeleteAccount={deleteAccount}
       />
