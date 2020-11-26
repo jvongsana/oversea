@@ -4,6 +4,7 @@ import reducer, {
   SET_ACCOUNT,
   SET_NEW_ACCOUNT,
   SET_APPLICATION_DATA,
+  SET_CATEGORY
 } from "../reducers/application";
 
 export function useApplicationData() {
@@ -40,22 +41,37 @@ export function useApplicationData() {
     })
   }, []);
 
-  const addAccount = (user_id, name) => {
+  const addAccount = (user_id, account) => {
     const url = 'http://localhost:8080/api/accounts';
-    axios.post(url, { user_id: user_id, name: name })
+    axios.post(url, { user_id: user_id, name: account })
     .then((res) => {
       dispatch({
         type: SET_NEW_ACCOUNT,
         user_id,
-        name
+        account
       });
     })
     .catch((err) => console.log("error is ", err));
   }
 
+  const addCategory = (category) => { 
+    console.log('category', category)
+    let url = 'http://localhost:8080/api/categories';
+    axios.post(url, {name: category})
+    .then((res) => {
+      dispatch({
+        type: SET_CATEGORY,
+        category
+      });
+    })
+    .catch((err) => console.log("error is ", err));
+   
+  }
+
   return {
     state,
     setAccount,
-    addAccount
+    addAccount,
+    addCategory
   };
 }

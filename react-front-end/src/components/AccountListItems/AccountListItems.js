@@ -8,6 +8,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles({
+  button: {
+    padding: '10px',
+    backgroundColor:'#01234c',
+    borderRadius: '10px',
+    textAlign: 'center',
+    "&:hover": {
+      backgroundColor: '#a6d0ef',
+      padding: '10px',
+      borderRadius: '20px'
+    }
+  }
 });
 
 function AccountListItems(props) {

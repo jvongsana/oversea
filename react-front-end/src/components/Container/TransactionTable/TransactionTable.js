@@ -19,7 +19,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors'
-import AddCategories from '../../AddCategories/AddCategories'
+// import AddCategories from '../../AddCategories/AddCategories'
 
 
 function descendingComparator(a, b, orderBy) {
@@ -166,7 +166,7 @@ const EnhancedTableToolbar = (props) => {
           >
             Account Transactions
           </Typography>
-          <AddCategories />
+          {/* <AddCategories /> */}
         </React.Fragment>
         
         

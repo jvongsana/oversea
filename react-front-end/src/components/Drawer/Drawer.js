@@ -11,7 +11,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import {useApplicationData} from "../../hooks/useApplicationData";
-import {getID} from '../../helpers/selectors'
 
 const useStyles = makeStyles({
   drawer: {
@@ -41,7 +40,6 @@ const useStyles = makeStyles({
 });
 
 
-
 function Drawer(props) {
   const classes = useStyles();
   const {
@@ -65,7 +63,7 @@ function Drawer(props) {
   const handleChangeInput = (event) => {
     setInput(event.target.value);
   }
-  console.log('rerendered');
+
   //function to add account to db
   const addNewAccount = () => {
     const user_id = 1;
