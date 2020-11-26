@@ -20,7 +20,8 @@ export default function AddCategories() {
       backgroundColor:'#01234c',
       "&:hover": {
         backgroundColor: '#a6d0ef'
-      }
+      },
+      fontSize: '10px'
     },
     formControl: {
       width: 500,
@@ -63,10 +64,10 @@ export default function AddCategories() {
   return (
     <React.Fragment>
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
-       + Categories
+       Add Categories
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
-        <DialogTitle id="form-dialog-title">Add Categorie</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add Category</DialogTitle>
         <DialogContent>
           <h3>Enter Category</h3>
           <FormControl component="fieldset" className={classes.formControl}>

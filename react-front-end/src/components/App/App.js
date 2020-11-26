@@ -26,7 +26,6 @@ export default function App(props) {
 
   const setAccount = account => setState({ ...state, account });
 
-  console.log(state);
   const transactions = getTransactionsByAccount(state, state.account);
 
   const renameAccount = (accountName, newAccountName) => {

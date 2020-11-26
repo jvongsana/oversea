@@ -49,7 +49,6 @@ export default function AddAccount(props) {
     .then((res) => {
       setInput("");
       handleClose();
-
     })
     .catch((err) => console.log("error is ", err));
   }
