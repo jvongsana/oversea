@@ -35,8 +35,20 @@ module.exports = db => {
     .catch((err) => {
       response.status(500).send(err);
     })
-  })
+  });
 
+  router.put("/accounts/:id", (request, response) => {
+    const { name } = request.body;
+    const { id } = request.params;
+    db.query('UPDATE accounts SET name = $1::text WHERE id = $2::integer', [name, id])
+  })
+  .then((res) => {
+    response.status(201).send("success");
+  })
+  .catch((err) => {
+    response.status(500).send(err);
+  });
+  
      
     
   });
