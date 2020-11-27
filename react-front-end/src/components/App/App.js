@@ -53,7 +53,8 @@ export default function App(props) {
     state,
     setAccount,
     addCategory,
-    addTransactions
+    addTransactions,
+    addAccount
   } = useApplicationData()
   
   const [input, setInput] = useState(0);
@@ -150,9 +151,11 @@ export default function App(props) {
   return (
       <div className={classes.container}>
         <Drawer 
+          transactions={state.transactions}
           accounts={state.accounts}
           account={state.account}
           setAccount={setAccount}
+          addAccount={addAccount}
         />
         {/* <Container 
           categories={state.categories}

@@ -42,13 +42,7 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
   const classes = useStyles();
-  const {
-    state,
-    addAccount
-  } = useApplicationData()
 
-  console.log('state', state)
-  console.log('drawer rerender')
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
 
@@ -70,7 +64,7 @@ function Drawer(props) {
   const addNewAccount = () => {
     const user_id = 1;
 
-    addAccount(user_id, input)
+    props.addAccount(user_id, input)
     setInput("");
     handleClose();
   }
@@ -86,8 +80,8 @@ function Drawer(props) {
         height="100px"
       />
       <AccountListItems 
-        accounts={state.accounts}
-        transactions={state.transactions}
+        accounts={props.accounts}
+        transactions={props.transactions}
         setAccount={props.setAccount}
       />
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
