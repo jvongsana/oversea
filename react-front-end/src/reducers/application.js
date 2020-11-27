@@ -3,10 +3,10 @@ const SET_ACCOUNT = "SET_ACCOUNT";
 const SET_CATEGORY = "SET_CATEGORY";
 const SET_TRANSACTION = "SET_TRANSACTION";
 const SET_NEW_ACCOUNT = "SET_NEW_ACCOUNT";
+const SET_NEW_TRANSACTION = "SET_NEW_TRANSACTION";
 
 const reducer = function(state, action) {
-  console.log('state', state)
-  console.log('action', action)
+ 
   switch (action.type) {
     case SET_ACCOUNT:
       return {
@@ -22,7 +22,7 @@ const reducer = function(state, action) {
               name: action.account
             }
           ]
-      }
+      }  
     case SET_APPLICATION_DATA:
       return {
         ...state,
@@ -41,6 +41,21 @@ const reducer = function(state, action) {
             }
           ]
       }
+    case SET_NEW_TRANSACTION:
+      return { 
+        ...state, 
+        transactions: 
+          [...state.transactions, 
+            { 
+              category_id: action.data.category_id,
+              account_id: action.data.account_id,
+              transaction_type_id: action.data.transaction_type_id,
+              payee: action.data.payee,
+              amount_cents: action.data.amount_cents,
+              transaction_date: action.data.transaction_date
+            }
+          ]
+    }  
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -49,4 +64,4 @@ const reducer = function(state, action) {
 } 
 
 export default reducer;
-export { SET_APPLICATION_DATA, SET_ACCOUNT, SET_CATEGORY, SET_TRANSACTION, SET_NEW_ACCOUNT };
+export { SET_APPLICATION_DATA, SET_ACCOUNT, SET_CATEGORY, SET_TRANSACTION, SET_NEW_ACCOUNT, SET_NEW_TRANSACTION };

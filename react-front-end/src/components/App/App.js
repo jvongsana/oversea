@@ -22,7 +22,6 @@ export default function App(props) {
   } = useApplicationData()
   
   const transactions = getTransactionsByAccount(state, state.account);
-  
   return (
       <div className={classes.container}>
         <Drawer 
@@ -34,7 +33,8 @@ export default function App(props) {
           categories={state.categories}
           account={state.account}
           transactions={transactions} 
-          transaction_type={state.transaction_types} 
+          transaction_type={state.transaction_types}
+          accounts={state.accounts} 
         />
       </div>
      

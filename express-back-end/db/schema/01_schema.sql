@@ -35,7 +35,8 @@ CREATE TABLE transactions (
   account_id INTEGER REFERENCES accounts(id),
   transaction_type_id INTEGER REFERENCES transaction_types(id),
   payee VARCHAR(255) NOT NULL,
-  amount_cents INTEGER NOT NULL
+  amount_cents INTEGER NOT NULL,
+  transaction_date date
 );
 
 

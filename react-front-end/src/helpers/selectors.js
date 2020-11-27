@@ -92,6 +92,30 @@ function getID(state) {
   return nextID;
 }
 
+function getTransactionTypeByName(state, name) {
+  for (const type of state) {
+    if (type.type_name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getAccountByName(state, name) {
+  for (const type of state) {
+    if (type.name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getCategoryByName(state, name) {
+  for (const category of state) {
+    if (category.name === name) {
+      return category.id
+    }
+  }
+}
+
 export {
         getTransactionsByAccount, 
         getCategoryById, 
@@ -99,5 +123,8 @@ export {
         getAmountDollars, 
         getCategoryForAccount, 
         getPercentCategoryExpense,
-        getID
+        getID,
+        getTransactionTypeByName,
+        getAccountByName,
+        getCategoryByName
       }
