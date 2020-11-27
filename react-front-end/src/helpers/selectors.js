@@ -97,10 +97,6 @@ function getAccountBalance(transactions, accounts, account) {
   let outflow = 0;
   let inflow = 0;
   const account_id = getAccountId(accounts, account)
-  console.log('t', transactions);
-  console.log('as', accounts);
-  console.log('a', account);
-  console.log('aid', account_id);
 
   for (const transaction of transactions) {
     if (transaction.account_id === account_id){
@@ -115,6 +111,30 @@ function getAccountBalance(transactions, accounts, account) {
   return getAmountDollars(inflow - outflow);
 }
 
+function getTransactionTypeByName(state, name) {
+  for (const type of state) {
+    if (type.type_name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getAccountByName(state, name) {
+  for (const type of state) {
+    if (type.name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getCategoryByName(state, name) {
+  for (const category of state) {
+    if (category.name === name) {
+      return category.id
+    }
+  }
+}
+
 export {
         getTransactionsByAccount, 
         getCategoryById, 
@@ -122,5 +142,8 @@ export {
         getAmountDollars, 
         getCategoryForAccount, 
         getPercentCategoryExpense,
-        getAccountBalance
+        getAccountBalance,
+        getTransactionTypeByName,
+        getAccountByName,
+        getCategoryByName
       }

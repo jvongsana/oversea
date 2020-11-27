@@ -46,9 +46,9 @@ function Drawer(props) {
     state,
     addAccount
   } = useApplicationData()
-  console.log('draw s', state)
 
-  
+  console.log('state', state)
+  console.log('drawer rerender')
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
 

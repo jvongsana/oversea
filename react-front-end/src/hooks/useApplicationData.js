@@ -4,7 +4,9 @@ import reducer, {
   SET_ACCOUNT,
   SET_NEW_ACCOUNT,
   SET_APPLICATION_DATA,
-  SET_CATEGORY
+  SET_CATEGORY,
+  SET_TRANSACTION,
+  SET_NEW_TRANSACTION
 } from "../reducers/application";
 
 export function useApplicationData() {
@@ -15,14 +17,6 @@ export function useApplicationData() {
     transactions: [],
     transaction_types: []
   });
-
-  const setAccount = account => {
-    dispatch({ 
-      type: SET_ACCOUNT,
-      ...state, 
-      account 
-    });
-  };
 
   useEffect(() => {
     Promise.all([
@@ -41,6 +35,16 @@ export function useApplicationData() {
     })
   }, []);
 
+
+  const setAccount = account => {
+    dispatch({ 
+      type: SET_ACCOUNT,
+      ...state, 
+      account 
+    });
+  };
+
+  
   const addAccount = (user_id, account) => {
     const url = 'http://localhost:8080/api/accounts';
     axios.post(url, { user_id: user_id, name: account })
@@ -68,10 +72,23 @@ export function useApplicationData() {
    
   }
 
+  const addTransactions = (data) => {
+    let url = 'http://localhost:8080/api/transactions';
+    axios.post(url, data)
+    .then((res) => {
+      dispatch({
+        type: SET_NEW_TRANSACTION,
+        data
+      });
+    })
+    .catch((err) => console.log("error is", err));
+  }
+
   return {
     state,
     setAccount,
     addAccount,
-    addCategory
+    addCategory,
+    addTransactions
   };
 }
