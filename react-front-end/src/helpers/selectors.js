@@ -34,7 +34,7 @@ function getTransactionTypeById(state, id) {
 }
 
 function getAmountDollars(amount){
-  return `$${(amount/100).toFixed(2)}`
+  return (amount/100).toFixed(2)
 }
 
 function getCategoryForAccount(state, id) {
@@ -85,12 +85,34 @@ function getPercentCategoryExpense(state, category) {
   return percentage;
 }
 
-function getID(state) {
-  console.log('id state', state)
-  const largestID = Math.max.apply(Math, state.accounts.map((account) =>  account.id ));
-  const nextID = largestID + 1
-  
-  return nextID;
+function getAccountId(accounts, account) {
+  for (const acc of accounts) {
+    if (acc.name === account) {
+      return acc.id
+    }
+  }
+}
+
+function getAccountBalance(transactions, accounts, account) {
+  let outflow = 0;
+  let inflow = 0;
+  const account_id = getAccountId(accounts, account)
+  console.log('t', transactions);
+  console.log('as', accounts);
+  console.log('a', account);
+  console.log('aid', account_id);
+
+  for (const transaction of transactions) {
+    if (transaction.account_id === account_id){
+      if (transaction.transaction_type_id === 2) {
+        outflow += transaction.amount_cents
+      } else {
+        inflow += transaction.amount_cents
+      }
+    }
+  }
+
+  return getAmountDollars(inflow - outflow);
 }
 
 export {
@@ -100,5 +122,5 @@ export {
         getAmountDollars, 
         getCategoryForAccount, 
         getPercentCategoryExpense,
-        getID
+        getAccountBalance
       }

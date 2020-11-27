@@ -324,7 +324,7 @@ export default function TransactionTable(props) {
                       <TableCell>Date Filler</TableCell>
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
                       <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
-                      <TableCell>{getAmountDollars(transaction.amount_cents)}</TableCell>
+                      <TableCell>${getAmountDollars(transaction.amount_cents)}</TableCell>
                     </TableRow>
                   );
                 })}

@@ -46,6 +46,8 @@ function Drawer(props) {
     state,
     addAccount
   } = useApplicationData()
+  console.log('draw s', state)
+
   
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
@@ -85,6 +87,7 @@ function Drawer(props) {
       />
       <AccountListItems 
         accounts={state.accounts}
+        transactions={state.transactions}
         setAccount={props.setAccount}
       />
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
