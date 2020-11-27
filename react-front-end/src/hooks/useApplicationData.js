@@ -96,14 +96,18 @@ export function useApplicationData() {
   const deleteAccount = accountName => {
     const accounts = [...state.accounts];
     let accountID;
+    console.log('before deletion:', accounts);
 
-    for (let account of accounts) {
-      if (account.name === accountName) {
-        accountID = account.id;
-        account = null;
+    for (let accountIndex in accounts) {
+      console.log('accountIndex :', accountIndex);
+      if (accounts[accountIndex].name === accountName) {
+        accountID = accounts[accountIndex].id;
+        accounts.splice(accountIndex, 1);
+        console.log('right after deletion:', accounts);
       }
     }
 
+    console.log('after deletion:', accounts);
     const url = `http://localhost:8080/api/accounts/${accountID}`;
     return axios.delete(url)
       .then(() => {
@@ -141,9 +145,9 @@ export function useApplicationData() {
   const deleteTransaction = id => {
     const transactions = [...state.transactions];
 
-    for (let transaction of transactions) {
-      if (transaction.id === id) {
-        transaction = null;
+    for (let transactionIndex in transactions) {
+      if (transactions[transactionIndex].id === id) {
+        transactions.splice(transactionIndex, 1);
       }
     }
 

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { useApplicationData } from "../../../hooks/useApplicationData";
 
 const useStyles = makeStyles({
   partial: {
@@ -22,7 +23,11 @@ const useStyles = makeStyles({
 
 export default function AccountReport(props) {
   const classes = useStyles();
-  const { account, onRename, onDelete } = props;
+  const {
+    renameAccount,
+    deleteAccount
+  } = useApplicationData();
+  const { account } = props;
 
   return (
     <Container maxWidth="sm" className={classes.partial} >
@@ -33,7 +38,7 @@ export default function AccountReport(props) {
           variant="contained"
           color="primary"
           startIcon={<EditIcon />}
-          onClick={() => onRename(account, "test")}
+          onClick={() => renameAccount(account, "test")}
         >
           Edit
       </Button>
@@ -41,7 +46,7 @@ export default function AccountReport(props) {
           variant="contained"
           color="secondary"
           startIcon={<DeleteIcon />}
-          onClick={() => onDelete(account)}
+          onClick={() => deleteAccount(account)}
         >
           Delete
       </Button>

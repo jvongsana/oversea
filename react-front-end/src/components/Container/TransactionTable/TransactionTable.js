@@ -20,6 +20,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors';
+import { useApplicationData } from "../../../hooks/useApplicationData";
 // import AddCategories from '../../AddCategories/AddCategories'
 
 
@@ -106,7 +107,7 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell >Actions</TableCell>
+        <TableCell>Actions</TableCell>
       </TableRow>
     </TableHead>
   );
@@ -153,14 +154,21 @@ const EnhancedTableToolbar = (props) => {
       })}
     >
       {numSelected > 0 ? (
-        <Typography
-          className={classes.title}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
+        <React.Fragment>
+          <Typography
+            className={classes.title}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
         </Typography>
+          <Tooltip title="Delete">
+            <IconButton aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </React.Fragment>
       ) : (
           <React.Fragment>
             <Typography
@@ -170,29 +178,16 @@ const EnhancedTableToolbar = (props) => {
               component="div"
             >
               Account Transactions
-          </Typography>
+            </Typography>
             {/* <AddCategories /> */}
+            <Tooltip title="Filter list">
+              <IconButton aria-label="filter list">
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip >
           </React.Fragment>
-
-
         )}
-      {
-
-      }
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-    </Toolbar>
+    </Toolbar >
   );
 };
 
@@ -227,6 +222,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransactionTable(props) {
   const classes = useStyles();
+  const {
+    editTransaction,
+    deleteTransaction
+  } = useApplicationData();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("date");
   const [selected, setSelected] = React.useState([]);
@@ -334,7 +333,7 @@ export default function TransactionTable(props) {
                         <IconButton
                           aria-label="edit"
                           color="primary"
-                          onClick={() => props.onEdit(transaction.id, "Test Kitchen", 13.37, 1, INFLOW)}
+                          onClick={() => editTransaction(transaction.id, "Oil & Gas", 13.37, 1, INFLOW)}
                         >
                           <EditIcon
                             color="primary"
@@ -343,7 +342,7 @@ export default function TransactionTable(props) {
                         <IconButton
                           aria-label="delete"
                           color="secondary"
-                          onClick={() => props.onDelete(transaction.id)}
+                          onClick={() => deleteTransaction(transaction.id)}
                         >
                           <DeleteIcon color="secondary" />
                         </IconButton>

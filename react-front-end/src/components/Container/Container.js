@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Container as Partial } from '@material-ui/core/';
 import AccountReport from './AccountReport/AccountReport';
 import TransactionTable from './TransactionTable/TransactionTable';
+import AccountSettings from './AccountSettings/AccountSettings';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -78,7 +79,7 @@ export default function Container(props) {
         />
         <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
           Add Categories
-            </Button>
+        </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
           <DialogTitle id="form-dialog-title">Add Category</DialogTitle>
           <DialogContent>
@@ -96,10 +97,10 @@ export default function Container(props) {
           <DialogActions>
             <Button onClick={handleClose} color="primary" className={classes.button}>
               Cancel
-                </Button>
+            </Button>
             <Button onClick={addNewCategory} color="primary" className={classes.button}>
               Add
-                </Button>
+            </Button>
           </DialogActions>
         </Dialog>
         <TransactionTable
@@ -108,6 +109,9 @@ export default function Container(props) {
           categories={state.categories}
           transaction_types={props.transaction_type}
         />
+        <AccountSettings
+          account={state.account}
+        />;
       </Partial>
     </React.Fragment>
   );
