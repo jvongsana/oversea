@@ -52,8 +52,6 @@ export default function App(props) {
     setAccount,
     addCategory,
     addTransactions,
-    renameAccount,
-    deleteAccount,
     addAccount
   } = useApplicationData();
 
@@ -62,8 +60,6 @@ export default function App(props) {
   const [openCategory, setOpenCategory] = useState(false);
 
   const classes = useStyles();
-
-  console.log('app rerender', props);
 
   // setting state for Amount textfield
   const [inputAmount, setInputAmount] = useState(0);
@@ -151,13 +147,13 @@ export default function App(props) {
   return (
     <div className={classes.container}>
       <Drawer
+        transactions={state.transactions}
         accounts={state.accounts}
         account={state.account}
-        transactions={state.transactions}
         setAccount={setAccount}
         addAccount={addAccount}
       />
-      {/* <Container
+      {/* <Container 
           categories={state.categories}
           account={state.account}
           transactions={state.transactions}
