@@ -59,7 +59,6 @@ export function useApplicationData() {
   }
 
   const addCategory = (category) => { 
-    console.log('category', category)
     let url = 'http://localhost:8080/api/categories';
     axios.post(url, {name: category})
     .then((res) => {

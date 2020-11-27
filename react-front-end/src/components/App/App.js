@@ -63,8 +63,6 @@ export default function App(props) {
 
   const classes = useStyles();
 
-  console.log('app rerender', props)
-
   // setting state for Amount textfield
   const [inputAmount, setInputAmount] = useState(0);
   const handleChangeInputAmount = (event) => {
