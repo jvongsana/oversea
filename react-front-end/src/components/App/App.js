@@ -274,7 +274,7 @@ export default function App(props) {
           transaction_types={state.transaction_types}
         />
         <AccountSettings
-          account={"Saving"}
+          account={state.account}
           renameAccount={renameAccount}
           deleteAccount={deleteAccount}
         />
