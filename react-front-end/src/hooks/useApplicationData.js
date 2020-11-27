@@ -7,7 +7,8 @@ import reducer, {
   SET_CATEGORY,
   SET_RENAME_ACCOUNT,
   SET_DELETE_ACCOUNT,
-  SET_TRANSACTIONS
+  SET_TRANSACTIONS,
+  SET_NEW_TRANSACTION
 } from "../reducers/application";
 
 export function useApplicationData() {
@@ -18,14 +19,6 @@ export function useApplicationData() {
     transactions: [],
     transaction_types: []
   });
-
-  const setAccount = account => {
-    dispatch({
-      type: SET_ACCOUNT,
-      ...state,
-      account
-    });
-  };
 
   useEffect(() => {
     Promise.all([
@@ -43,6 +36,16 @@ export function useApplicationData() {
       });
     });
   }, []);
+
+
+  const setAccount = account => {
+    dispatch({
+      type: SET_ACCOUNT,
+      ...state,
+      account
+    });
+  };
+
 
   const addAccount = (user_id, account) => {
     const url = 'http://localhost:8080/api/accounts';
@@ -71,35 +74,36 @@ export function useApplicationData() {
   };
 
   const renameAccount = (accountName, newAccountName) => {
-    // const accounts = [...state.accounts];
-    const accounts = state.accounts.map(item => item);
+    const accounts = [...state.accounts];
+    // const accounts = state.accounts.map(item => item);
     console.log('accounts before:', accounts);
     let accountID = 2;
 
-    // for (const account of accounts) {
-    //   if (account.name === accountName) {
-    //     console.log('hello');
-    //     accountID = account.id;
-    //     account.name = newAccountName;
-    //   }
-    // }
+    for (const account of accounts) {
+      if (account.name === accountName) {
+        console.log('hello');
+        accountID = account.id;
+        account.name = newAccountName;
+      }
+    }
 
+    console.log('accountID :', accountID);
     console.log('accounts after:', accounts);
 
-    const url = `http://localhost:8080/api/accounts/${accountID}`;
-    return axios.put(url, { name: newAccountName })
-      .then(() => {
-        console.log(`Account renamed: ${accountName} => ${newAccountName}`);
-        dispatch({
-          type: SET_RENAME_ACCOUNT,
-          account: newAccountName,
-          accounts
-        });
-      })
-      .catch((err) => {
-        console.log('state from error:', state);
-        console.log("Error is:", err);
-      });
+    // const url = `http://localhost:8080/api/accounts/${accountID}`;
+    // return axios.put(url, { name: newAccountName })
+    //   .then(() => {
+    //     console.log(`Account renamed: ${accountName} => ${newAccountName}`);
+    //     dispatch({
+    //       type: SET_RENAME_ACCOUNT,
+    //       account: newAccountName,
+    //       accounts
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log('state from error:', state);
+    //     console.log("Error is:", err);
+    //   });
   };
 
   const deleteAccount = accountName => {
@@ -171,6 +175,18 @@ export function useApplicationData() {
       });
   };
 
+  const addTransactions = (data) => {
+    let url = 'http://localhost:8080/api/transactions';
+    axios.post(url, data)
+      .then((res) => {
+        dispatch({
+          type: SET_NEW_TRANSACTION,
+          data
+        });
+      })
+      .catch((err) => console.log("error is", err));
+  };
+
   return {
     state,
     setAccount,
@@ -179,6 +195,7 @@ export function useApplicationData() {
     renameAccount,
     deleteAccount,
     editTransaction,
-    deleteTransaction
+    deleteTransaction,
+    addTransactions
   };
 }
