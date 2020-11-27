@@ -52,7 +52,9 @@ export default function App(props) {
     setAccount,
     addCategory,
     addTransactions,
-    addAccount
+    addAccount,
+    renameAccount,
+    deleteAccount
   } = useApplicationData();
 
   const [input, setInput] = useState(0);

@@ -42,10 +42,6 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
   const classes = useStyles();
-<<<<<<< HEAD
-=======
-
->>>>>>> master
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
 
@@ -67,11 +63,7 @@ function Drawer(props) {
   const addNewAccount = () => {
     const user_id = 1;
 
-<<<<<<< HEAD
     props.addAccount(user_id, input);
-=======
-    props.addAccount(user_id, input)
->>>>>>> master
     setInput("");
     handleClose();
   };
