@@ -16,20 +16,35 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 
-
 import { getCategoryByName,getTransactionTypeByName,getAccountByName} from '../../helpers/selectors';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import {Select, MenuItem,InputLabel} from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-
-
 const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: "#EFEEEE"
+  },
+    partial: {
+    backgroundColor: '#EFEEEE',
+    height: '90vh',
+    marginTop: '6em'
+  },
+  button: {
+    marginTop: '3.5em',
+    marginLeft: '5em',
+    backgroundColor:'#01234c',
+    "&:hover": {
+      backgroundColor: '#a6d0ef'
+    },
+    fontSize: '12px'
+  },
+  formControl: {
+    width: 500,
+    padding: '0 1em'
   }
 });
 
@@ -152,12 +167,7 @@ export default function App(props) {
             transactions={transactions}
             categories={state.categories}
           />
-          <TransactionTable
-            account={state.account}
-            transactions={transactions}
-            categories={state.categories}
-            transaction_types={state.transaction_types}
-          />
+          
           {/* CATEGORY BUTTON */}
           <React.Fragment>
               <Button variant="outlined" color="primary" onClick={handleOpenCategory} className={classes.button}>
@@ -256,6 +266,12 @@ export default function App(props) {
               </DialogActions>
             </Dialog>
           </React.Fragment>
+          <TransactionTable
+            account={state.account}
+            transactions={transactions}
+            categories={state.categories}
+            transaction_types={state.transaction_types}
+          />
         </div>
       </div>
      
