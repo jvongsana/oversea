@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function AccountReport(props) {
+export default function AccountSettings(props) {
   const classes = useStyles();
   const { account, renameAccount, deleteAccount } = props;
 
@@ -33,9 +33,7 @@ export default function AccountReport(props) {
           variant="contained"
           color="primary"
           startIcon={<EditIcon />}
-          onClick={() => {
-            renameAccount(account, "test12");
-          }}
+          onClick={() => renameAccount(account, "BMO Credit Card")}
         >
           Edit
         </Button>

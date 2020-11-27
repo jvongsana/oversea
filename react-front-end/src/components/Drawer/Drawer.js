@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
-import {useApplicationData} from "../../hooks/useApplicationData";
+import { useApplicationData } from "../../hooks/useApplicationData";
 
 const useStyles = makeStyles({
   drawer: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
   button: {
     padding: '10px',
-    backgroundColor:'#01234c',
+    backgroundColor: '#01234c',
     borderRadius: '10px',
     textAlign: 'center',
     "&:hover": {
@@ -42,13 +42,6 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
   const classes = useStyles();
-  const {
-    state,
-    addAccount
-  } = useApplicationData()
-
-  console.log('state', state)
-  console.log('drawer rerender')
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
 
@@ -64,18 +57,18 @@ function Drawer(props) {
   // setting state for textfield
   const handleChangeInput = (event) => {
     setInput(event.target.value);
-  }
+  };
 
   //function to add account to db
   const addNewAccount = () => {
     const user_id = 1;
 
-    addAccount(user_id, input)
+    props.addAccount(user_id, input);
     setInput("");
     handleClose();
-  }
+  };
 
-  
+
   return (
     <Sidebar variant="permanent" className={classes.drawer} classes={{ paper: classes.paper }}>
       <img
@@ -85,13 +78,13 @@ function Drawer(props) {
         width="100px"
         height="100px"
       />
-      <AccountListItems 
-        accounts={state.accounts}
-        transactions={state.transactions}
+      <AccountListItems
+        accounts={props.accounts}
+        transactions={props.transactions}
         setAccount={props.setAccount}
       />
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
-       + Accounts
+        + Accounts
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
         <DialogTitle id="form-dialog-title">Add Account</DialogTitle>
@@ -102,9 +95,9 @@ function Drawer(props) {
               id="outlined-secondary"
               label="Ex:- Saving"
               variant="outlined"
-              color="primary" 
+              color="primary"
               onChange={handleChangeInput}
-            /> 
+            />
           </FormControl>
         </DialogContent>
         <DialogActions class={classes.root}>
@@ -116,7 +109,7 @@ function Drawer(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Sidebar> 
+    </Sidebar>
   );
 }
 

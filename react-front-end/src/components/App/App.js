@@ -53,7 +53,8 @@ export default function App(props) {
     addCategory,
     addTransactions,
     renameAccount,
-    deleteAccount
+    deleteAccount,
+    addAccount
   } = useApplicationData();
 
   const [input, setInput] = useState(0);
@@ -152,7 +153,9 @@ export default function App(props) {
       <Drawer
         accounts={state.accounts}
         account={state.account}
+        transactions={state.transactions}
         setAccount={setAccount}
+        addAccount={addAccount}
       />
       {/* <Container
           categories={state.categories}
@@ -273,7 +276,7 @@ export default function App(props) {
           transaction_types={state.transaction_types}
         />
         <AccountSettings
-          account={state.account}
+          account={"Saving"}
           renameAccount={renameAccount}
           deleteAccount={deleteAccount}
         />

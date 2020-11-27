@@ -75,35 +75,28 @@ export function useApplicationData() {
 
   const renameAccount = (accountName, newAccountName) => {
     const accounts = [...state.accounts];
-    // const accounts = state.accounts.map(item => item);
-    console.log('accounts before:', accounts);
-    let accountID = 2;
+    console.log('accounts before changing name :', accounts);
+    let accountID;
 
     for (const account of accounts) {
       if (account.name === accountName) {
-        console.log('hello');
         accountID = account.id;
         account.name = newAccountName;
       }
     }
 
-    console.log('accountID :', accountID);
-    console.log('accounts after:', accounts);
-
-    // const url = `http://localhost:8080/api/accounts/${accountID}`;
-    // return axios.put(url, { name: newAccountName })
-    //   .then(() => {
-    //     console.log(`Account renamed: ${accountName} => ${newAccountName}`);
-    //     dispatch({
-    //       type: SET_RENAME_ACCOUNT,
-    //       account: newAccountName,
-    //       accounts
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log('state from error:', state);
-    //     console.log("Error is:", err);
-    //   });
+    const url = `http://localhost:8080/api/accounts/${accountID}`;
+    return axios.put(url, { name: newAccountName })
+      .then(() => {
+        dispatch({
+          type: SET_RENAME_ACCOUNT,
+          account: newAccountName,
+          accounts
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const deleteAccount = accountName => {
