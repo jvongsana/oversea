@@ -17,7 +17,7 @@ import AccountSettings from '../AccountSettings/AccountSettings';
 import { getCategoryByName, getTransactionTypeByName, getAccountByName } from '../../helpers/selectors';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import { Select, MenuItem, InputLabel } from "@material-ui/core";
+import { Select, MenuItem } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles({
