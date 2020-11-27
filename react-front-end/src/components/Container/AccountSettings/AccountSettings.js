@@ -24,10 +24,13 @@ const useStyles = makeStyles({
 export default function AccountReport(props) {
   const classes = useStyles();
   const {
+    state,
     renameAccount,
     deleteAccount
   } = useApplicationData();
   const { account } = props;
+  console.log('account settings rendered');
+  console.log('state after render:', state);
 
   return (
     <Container maxWidth="sm" className={classes.partial} >
@@ -38,7 +41,10 @@ export default function AccountReport(props) {
           variant="contained"
           color="primary"
           startIcon={<EditIcon />}
-          onClick={() => renameAccount(account, "test")}
+          onClick={() => {
+            console.log('state:', state);
+            renameAccount(account, "test12");
+          }}
         >
           Edit
       </Button>

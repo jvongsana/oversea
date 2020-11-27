@@ -61,6 +61,7 @@ function getTotalCategorySpending(transactions) {
   return sum 
 }
 
+
 function getPercentCategoryExpense(state, category) {
   let categorizedTransactions = []
   let totalExpenses = 0;
@@ -88,7 +89,7 @@ function getID(state) {
   console.log('id state', state)
   const largestID = Math.max.apply(Math, state.accounts.map((account) =>  account.id ));
   const nextID = largestID + 1
-
+  
   return nextID;
 }
 

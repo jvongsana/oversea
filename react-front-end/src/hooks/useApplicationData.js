@@ -71,15 +71,20 @@ export function useApplicationData() {
   };
 
   const renameAccount = (accountName, newAccountName) => {
-    const accounts = [...state.accounts];
-    let accountID;
+    // const accounts = [...state.accounts];
+    const accounts = state.accounts.map(item => item);
+    console.log('accounts before:', accounts);
+    let accountID = 2;
 
-    for (const account of accounts) {
-      if (account.name === accountName) {
-        accountID = account.id;
-        account.name = newAccountName;
-      }
-    }
+    // for (const account of accounts) {
+    //   if (account.name === accountName) {
+    //     console.log('hello');
+    //     accountID = account.id;
+    //     account.name = newAccountName;
+    //   }
+    // }
+
+    console.log('accounts after:', accounts);
 
     const url = `http://localhost:8080/api/accounts/${accountID}`;
     return axios.put(url, { name: newAccountName })
@@ -90,6 +95,10 @@ export function useApplicationData() {
           account: newAccountName,
           accounts
         });
+      })
+      .catch((err) => {
+        console.log('state from error:', state);
+        console.log("Error is:", err);
       });
   };
 

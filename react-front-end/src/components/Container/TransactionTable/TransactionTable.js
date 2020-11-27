@@ -21,7 +21,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors';
 import { useApplicationData } from "../../../hooks/useApplicationData";
-// import AddCategories from '../../AddCategories/AddCategories'
 
 
 function descendingComparator(a, b, orderBy) {

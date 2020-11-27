@@ -25,6 +25,7 @@ const reducer = function (state, action) {
           ]
       };
     case SET_RENAME_ACCOUNT:
+      console.log('hello from reducer');
       return {
         ...state,
         account: action.account,

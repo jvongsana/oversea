@@ -73,13 +73,13 @@ export default function Container(props) {
       <Partial maxWidth="xl" className={classes.partial}>
         {/* <Dashboard /> */}
         <AccountReport
-          account={state.account}
-          transactions={state.transactions}
+          account={props.account}
+          transactions={props.transactions}
           categories={state.categories}
         />
         <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
           Add Categories
-        </Button>
+            </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
           <DialogTitle id="form-dialog-title">Add Category</DialogTitle>
           <DialogContent>
@@ -97,21 +97,21 @@ export default function Container(props) {
           <DialogActions>
             <Button onClick={handleClose} color="primary" className={classes.button}>
               Cancel
-            </Button>
+                </Button>
             <Button onClick={addNewCategory} color="primary" className={classes.button}>
               Add
-            </Button>
+                </Button>
           </DialogActions>
         </Dialog>
         <TransactionTable
-          account={state.account}
-          transactions={state.transactions}
-          categories={state.categories}
+          account={props.account}
+          transactions={props.transactions}
+          categories={props.categories}
           transaction_types={props.transaction_type}
         />
         <AccountSettings
-          account={state.account}
-        />;
+          account={props.account}
+        />
       </Partial>
     </React.Fragment>
   );

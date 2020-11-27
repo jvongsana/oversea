@@ -23,8 +23,7 @@ const useStyles = makeStyles({
 
 function AccountListItems(props) {
   const classes = useStyles();
-  console.log('props', props)
-  console.log('accounts', props.accounts)
+
   return ( 
       <List>
         <ListItem button key="root" classes={{ root: classes.button }} >
