@@ -18,7 +18,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../../helpers/selectors';
+import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../helpers/selectors';
 
 const headCells = [
   { id: 'payee', numeric: false, disablePadding: false, label: 'Payee' },
@@ -118,7 +118,9 @@ export default function TransactionTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.transactions.map((transaction, index) => {
+              {props.transactions
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((transaction, index) => {
                   const isItemSelected = isSelected(transaction.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 

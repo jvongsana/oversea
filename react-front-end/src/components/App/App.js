@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { getTransactionsByAccount } from '../../helpers/selectors'
 import {useApplicationData} from "../../hooks/useApplicationData";
-import AccountReport  from '../Container/AccountReport/AccountReport';
-import TransactionTable from '../Container/TransactionTable/TransactionTable';
+import AccountReport  from '../AccountReport/AccountReport';
+import TransactionTable from '../TransactionTable/TransactionTable';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function App() {
+export default function App(props) {
   const {
     state,
     setAccount,
@@ -42,12 +42,12 @@ export default function App() {
   } = useApplicationData()
   
   const [input, setInput] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [openTransaction, setOpenTransaction] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
 
   const classes = useStyles();
 
-  console.log('app rerender')
-
+  console.log('app rerender', props)
 
   // setting state for Amount textfield
   const [inputAmount, setInputAmount] = useState(0);
@@ -67,9 +67,13 @@ export default function App() {
   };
 
   // state for select menu for categories
-  const [inputCategorie, setInputCategory] = React.useState("");
+  const [inputTransactionCategory, setInputTransactionCategory] = React.useState("");
   const handleChangeCategory = event => {
-    setInputCategory(event.target.value);
+    setInputTransactionCategory(event.target.value);
+  };
+
+  const handleOpenTransaction = () => {
+    setOpenTransaction(true);
   };
   
   // state for datepicker
@@ -79,12 +83,14 @@ export default function App() {
     setInputDate(event.target.value);
   }
   
-
-  const Category_id = getCategoryByName(state.categories, inputCategorie);
+  const Category_id = getCategoryByName(state.categories, inputTransactionCategory);
   const transaction_types_id = getTransactionTypeByName(state.transaction_types, selection);
   const account_id = getAccountByName(state.accounts,state.account);
 
-
+  const handleCloseTransaction = () => {
+    setInputTransactionCategory("")
+    setOpenTransaction(false);
+  };
 
   const addNewTransaction = () => {
     const data = {
@@ -98,21 +104,19 @@ export default function App() {
     addTransactions(data);
     setInputAmount("");
     setInputPayee("");
-    setInputCategory("");
+    setInputTransactionCategory("");
     setSelection("");
-    handleClose();
+    handleCloseTransaction();
   }
 
 
-
-
-  const handleClose = () => {
-    setInputCategory("")
-    setOpen(false);
+  const handleCloseCategory = () => {
+    setInputTransactionCategory("")
+    setOpenCategory(false);
   };
   
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleOpenCategory = () => {
+    setOpenCategory(true);
   };
 
   const handleChangeInput = (event) => {
@@ -122,7 +126,7 @@ export default function App() {
   const addNewCategory = () => {
     addCategory(input)
     setInput("");
-    handleClose(); 
+    handleCloseCategory(); 
   }
 
   const transactions = getTransactionsByAccount(state, state.account);
@@ -156,10 +160,10 @@ export default function App() {
           />
           {/* CATEGORY BUTTON */}
           <React.Fragment>
-              <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
+              <Button variant="outlined" color="primary" onClick={handleOpenCategory} className={classes.button}>
                 Add Categories
               </Button>
-              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+              <Dialog open={openCategory} onClose={handleCloseCategory} aria-labelledby="form-dialog-title" >
                 <DialogTitle id="form-dialog-title">Add Category</DialogTitle>
                 <DialogContent>
                   <h3>Enter Category</h3>
@@ -174,7 +178,7 @@ export default function App() {
                   </FormControl>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose} color="primary" className={classes.button}>
+                  <Button onClick={handleCloseCategory} color="primary" className={classes.button}>
                     Cancel
                   </Button>
                   <Button onClick={addNewCategory} color="primary" className={classes.button}>
@@ -185,10 +189,10 @@ export default function App() {
           </React.Fragment>
           {/* TRANSACTION BUTTON */}
           <React.Fragment>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.button}>
+            <Button variant="outlined" color="primary" onClick={handleOpenTransaction} className={classes.button}>
                 Add Transactions
             </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+            <Dialog open={openTransaction} onClose={handleCloseTransaction} aria-labelledby="form-dialog-title" >
               <DialogTitle id="form-dialog-title">Add Transactions</DialogTitle>
               <DialogContent>
                 
@@ -211,7 +215,7 @@ export default function App() {
                   /> 
                   <h3>Select Category</h3>
                   <Select
-                    value={inputCategorie}
+                    value={inputTransactionCategory}
                     className={classes.inner}
                     onChange={handleChangeCategory}
                     id="select"
@@ -243,7 +247,7 @@ export default function App() {
                 </FormControl>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose} color="primary" className={classes.button}>
+                <Button onClick={handleCloseTransaction} color="primary" className={classes.button}>
                   Cancel
                 </Button>
                 <Button onClick={addNewTransaction} color="primary" className={classes.button}>
