@@ -34,7 +34,7 @@ function getTransactionTypeById(state, id) {
 }
 
 function getAmountDollars(amount){
-  return `$${(amount/100).toFixed(2)}`
+  return (amount/100).toFixed(2)
 }
 
 function getCategoryForAccount(state, id) {
@@ -85,9 +85,65 @@ function getPercentCategoryExpense(state, category) {
   return percentage;
 }
 
-export {getTransactionsByAccount, 
+function getAccountId(accounts, account) {
+  for (const acc of accounts) {
+    if (acc.name === account) {
+      return acc.id
+    }
+  }
+}
+
+function getAccountBalance(transactions, accounts, account) {
+  let outflow = 0;
+  let inflow = 0;
+  const account_id = getAccountId(accounts, account)
+
+  for (const transaction of transactions) {
+    if (transaction.account_id === account_id){
+      if (transaction.transaction_type_id === 2) {
+        outflow += transaction.amount_cents
+      } else {
+        inflow += transaction.amount_cents
+      }
+    }
+  }
+
+  return getAmountDollars(inflow - outflow);
+}
+
+function getTransactionTypeByName(state, name) {
+  for (const type of state) {
+    if (type.type_name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getAccountByName(state, name) {
+  for (const type of state) {
+    if (type.name === name) {
+      return type.id;
+    }
+  }
+}
+
+function getCategoryByName(state, name) {
+  for (const category of state) {
+    if (category.name === name) {
+      return category.id
+    }
+  }
+}
+
+export {
+        getTransactionsByAccount, 
         getCategoryById, 
         getTransactionTypeById, 
         getAmountDollars, 
         getCategoryForAccount, 
-        getPercentCategoryExpense}
+        getPercentCategoryExpense,
+        getAccountBalance,
+        getTransactionTypeByName,
+        getAccountByName,
+        getCategoryByName
+      }

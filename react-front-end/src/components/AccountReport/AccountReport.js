@@ -4,13 +4,13 @@ import './AccountReport.scss';
 import { Container } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import ProgressBar from './ProgressBars/ProgressBar';
-import { getPercentCategoryExpense } from '../../../helpers/selectors';
+import { getPercentCategoryExpense } from '../../helpers/selectors';
 
 const useStyles = makeStyles({
   partial: {
     backgroundColor: '#a6d0ef',
     height: 'auto',
-    width: '80vw',
+    width: '83vw',
     borderRadius: '20px',
     padding: '24px 48px 48px 48px'
   },
@@ -29,7 +29,7 @@ export default function AccountReport(props) {
       <CssBaseline />
       <h1>{props.account} Account Expense Report</h1>
       {props.categories.map((category) => (
-        <div className={classes.progressBar}>
+        <div className={classes.progressBar} key={category.id}>
           <p>{category.name}</p>
           <ProgressBar bgcolor={color} completed={getPercentCategoryExpense(props.transactions, category)} />
         </div>
