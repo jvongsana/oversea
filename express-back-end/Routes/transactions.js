@@ -37,17 +37,17 @@ module.exports = db => {
     })
   });
 
-  router.put("/transactions/:id", (request, response) => {
-    const { name, category_id, account_id, transaction_type_id,payee,amount_cents,transaction_date } = request.body;
-    const { id } = request.params;
-    db.query('UPDATE transactions SET name = $1::text, category_id = $2::integer, account_id = $3::integer, transaction_type_id = $4::integer, payee= $5::text, amount_cents = $6::text, transaction_date = $7::date WHERE id = $8::integer', [name,category_id,account_id,transaction_type_id,payee,amount_cents,transaction_date, id])
-  })
-  .then((res) => {
-    response.status(201).send("success");
-  })
-  .catch((err) => {
-    response.status(500).send(err);
-  });
+  // router.put("/transactions/:id", (request, response) => {
+  //   const { name, category_id, account_id, transaction_type_id,payee,amount_cents,transaction_date } = request.body;
+  //   const { id } = request.params;
+  //   db.query('UPDATE transactions SET name = $1::text, category_id = $2::integer, account_id = $3::integer, transaction_type_id = $4::integer, payee= $5::text, amount_cents = $6::text, transaction_date = $7::date WHERE id = $8::integer', [name,category_id,account_id,transaction_type_id,payee,amount_cents,transaction_date, id])
+  // })
+  // .then((res) => {
+  //   response.status(201).send("success");
+  // })
+  // .catch((err) => {
+  //   response.status(500).send(err);
+  // });
 
   
 

@@ -36,17 +36,17 @@ module.exports = db => {
     })
   });
 
-  router.put("/categories/:id", (request, response) => {
-    const { name } = request.body;
-    const { id } = request.params;
-    db.query('UPDATE categories SET name = $1::text WHERE id = $2::integer', [name, id])
-  })
-  .then((res) => {
-    response.status(201).send("success");
-  })
-  .catch((err) => {
-    response.status(500).send(err);
-  });
+  // router.put("/categories/:id", (request, response) => {
+  //   const { name } = request.body;
+  //   const { id } = request.params;
+  //   db.query('UPDATE categories SET name = $1::text WHERE id = $2::integer', [name, id])
+  // })
+  // .then((res) => {
+  //   response.status(201).send("success");
+  // })
+  // .catch((err) => {
+  //   response.status(500).send(err);
+  // });
   
   return router;
 };
