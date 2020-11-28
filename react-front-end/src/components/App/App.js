@@ -19,6 +19,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import { Select, MenuItem } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Dashboard from '../Dashboard/Dashboard';
 
 const useStyles = makeStyles({
   container: {
@@ -168,6 +169,7 @@ export default function App(props) {
           transactions={transactions}
           categories={state.categories}
         />
+        <Dashboard />
 
         {/* CATEGORY BUTTON */}
         <React.Fragment>

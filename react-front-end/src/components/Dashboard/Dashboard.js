@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   partial: {
     backgroundColor: '#a6d0ef',
     height: 'auto',
-    width: '80vw',
+    width: '83vw',
     borderRadius: '20px',
     padding: '24px 48px 48px 48px'
   },
