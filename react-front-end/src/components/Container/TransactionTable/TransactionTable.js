@@ -323,7 +323,6 @@ export default function TransactionTable(props) {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
-                      
                       <TableCell id={labelId}>{transaction.payee}</TableCell>
                       <TableCell>Date Filler</TableCell>
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>

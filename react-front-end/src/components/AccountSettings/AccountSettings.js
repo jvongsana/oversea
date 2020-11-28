@@ -24,8 +24,6 @@ export default function AccountSettings(props) {
   const classes = useStyles();
   const { account, renameAccount, deleteAccount } = props;
 
-  
-
   return (
     <Container maxWidth="sm" className={classes.partial} >
       <CssBaseline />
