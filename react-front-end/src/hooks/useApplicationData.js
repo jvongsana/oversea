@@ -126,25 +126,34 @@ export function useApplicationData() {
   };
 
   const editTransaction = (id, payee, amount, categoryID, transactionTypeID) => {
-    const transactions = [...state.transactions];
-
-    for (const transaction of transactions) {
-      if (transaction.id === id) {
-        transaction.payee = payee;
-        transaction.amount_cents = amount * 100;
-        transaction.category_id = categoryID;
-        transaction.transaction_type_id = transactionTypeID;
-      }
-    }
-
     const url = `http://localhost:8080/api/transactions/${id}`;
     return axios.put(url, { payee, amount, categoryID, transactionTypeID })
       .then(() => {
+        console.log('state.transactions right after axios put:', state.transactions);
+        const transactions = [...state.transactions];
+        console.log('state.transactions right after copy of transactions:', state.transactions);
+        console.log('transactions right after copy of transactions:', transactions);
+
+        for (const transaction of transactions) {
+          if (transaction.id === id) {
+            transaction.payee = payee;
+            transaction.amount_cents = amount * 100;
+            transaction.category_id = categoryID;
+            transaction.transaction_type_id = transactionTypeID;
+          }
+        }
+
+        console.log("state.transactions right before dispatching:", state.transactions);
+        console.log("transactions right before dispatching:", transactions);
+
         dispatch({
           type: SET_TRANSACTIONS,
           transactions
         });
         console.log(`Transaction id: ${id} edited payee to: ${payee}, amount to: ${amount * 100}, category_id to: ${categoryID}, transaction_type_id to: ${transactionTypeID}`);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -158,13 +167,15 @@ export function useApplicationData() {
     }
 
     const url = `http://localhost:8080/api/transactions/${id}`;
-    return axios.put(url)
+    return axios.delete(url)
       .then(() => {
         dispatch({
           type: SET_TRANSACTIONS,
           transactions
         });
-        console.log(`Transaction id: ${id} deleted.`);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 

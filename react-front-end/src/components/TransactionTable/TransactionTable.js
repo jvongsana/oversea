@@ -1,5 +1,5 @@
 import React from "react";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,6 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from "@material-ui/icons/Delete";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../helpers/selectors';
 
 const headCells = [
@@ -43,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const INFLOW = 1;
+const OUTFLOW = 2;
+
 export default function TransactionTable(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
@@ -51,7 +57,7 @@ export default function TransactionTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  console.log('tt', props)
+  console.log('tt', props);
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -98,19 +104,20 @@ export default function TransactionTable(props) {
           >
             <TableHead>
               <TableRow>
-              {
-                headCells.map(headCell => 
-                  (
-                    <TableCell key={headCell.id} classes={{head: classes.head}}>{headCell.label}</TableCell>
+                {
+                  headCells.map(headCell =>
+                    (
+                      <TableCell key={headCell.id} classes={{ head: classes.head }}>{headCell.label}</TableCell>
+                    )
                   )
-                )
-              }
+                }
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {props.transactions
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((transaction, index) => {
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((transaction, index) => {
                   const isItemSelected = isSelected(transaction.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -121,6 +128,24 @@ export default function TransactionTable(props) {
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
                       <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
                       <TableCell>${getAmountDollars(transaction.amount_cents)}</TableCell>
+                      <TableCell >
+                        <IconButton
+                          aria-label="edit"
+                          color="primary"
+                          onClick={() => props.editTransaction(transaction.id, "Oil & Gas", 13.37, 1, INFLOW)}
+                        >
+                          <EditIcon
+                            color="primary"
+                          />
+                        </IconButton>
+                        <IconButton
+                          aria-label="delete"
+                          color="secondary"
+                          onClick={() => props.deleteTransaction(transaction.id)}
+                        >
+                          <DeleteIcon color="secondary" />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })}

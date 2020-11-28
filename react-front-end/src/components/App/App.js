@@ -54,7 +54,9 @@ export default function App(props) {
     addTransactions,
     addAccount,
     renameAccount,
-    deleteAccount
+    deleteAccount,
+    editTransaction,
+    deleteTransaction
   } = useApplicationData();
 
   const [input, setInput] = useState(0);
@@ -272,6 +274,8 @@ export default function App(props) {
           transactions={transactions}
           categories={state.categories}
           transaction_types={state.transaction_types}
+          editTransaction={editTransaction}
+          deleteTransaction={deleteTransaction}
         />
         <AccountSettings
           account={state.account}
