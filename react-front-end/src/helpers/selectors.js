@@ -49,33 +49,31 @@ function getCategoryForAccount(state, id) {
   return accountCategories;
 }
 
-function getTotalCategorySpending(transactions) {
-  let sum = 0;
+function getTotalCategorySpending(transactions, category) {
+  let totalSpending = 0;
 
   for (const transaction of transactions) {
     if (transaction.transaction_type_id === 2) {  
-      sum += transaction.amount_cents
-    }
-  }
-
-  return sum 
-}
-
-
-function getPercentCategoryExpense(state, category) {
-  let categorizedTransactions = []
-  let totalExpenses = 0;
-  
-  for (const transaction of state){
-    if (transaction.transaction_type_id === 2) {
-      totalExpenses += transaction.amount_cents;
       if (transaction.category_id === category.id) {
-        categorizedTransactions.push(transaction)
+        totalSpending += transaction.amount_cents
       }
     }
   }
+
+  return totalSpending;
+}
+
+
+function getPercentCategoryExpense(transactions, category) {
+  let totalExpenses = 0;
   
-  const totalCategorySpending = getTotalCategorySpending(categorizedTransactions);
+  for (const transaction of transactions){
+    if (transaction.transaction_type_id === 2) {
+      totalExpenses += transaction.amount_cents;
+    }
+  }
+  
+  const totalCategorySpending = getTotalCategorySpending(transactions, category);
   const percentage = ((totalCategorySpending/totalExpenses) * 100).toFixed(2);
 
   if (isNaN(percentage)) {
@@ -145,5 +143,6 @@ export {
         getAccountBalance,
         getTransactionTypeByName,
         getAccountByName,
-        getCategoryByName
+        getCategoryByName,
+        getTotalCategorySpending
       }

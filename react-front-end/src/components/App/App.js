@@ -54,7 +54,9 @@ export default function App(props) {
       { state.dashboard
         ? <div className="mainContainer">
           <Dashboard
-
+            transactions={state.transactions}
+            accounts={state.accounts}
+            categories={state.categories}
           />
         </div>
         : <div className="mainContainer">
