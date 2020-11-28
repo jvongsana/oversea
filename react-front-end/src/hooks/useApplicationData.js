@@ -49,11 +49,11 @@ export function useApplicationData() {
 
   const addAccount = (user_id, account) => {
     const url = 'http://localhost:8080/api/accounts';
-    console.log('userid', user_id)
-    console.log('acc', account)
+    console.log('userid', user_id);
+    console.log('acc', account);
     axios.post(url, { user_id: user_id, name: account })
       .then((res) => {
-        const id = res.data
+        const id = res.data;
         dispatch({
           type: SET_NEW_ACCOUNT,
           id,
@@ -78,7 +78,6 @@ export function useApplicationData() {
 
   const renameAccount = (accountName, newAccountName) => {
     const accounts = [...state.accounts];
-    console.log('accounts before changing name :', accounts);
     let accountID;
 
     for (const account of accounts) {
@@ -105,26 +104,24 @@ export function useApplicationData() {
   const deleteAccount = accountName => {
     const accounts = [...state.accounts];
     let accountID;
-    console.log('before deletion:', accounts);
 
-    for (let accountIndex in accounts) {
-      console.log('accountIndex :', accountIndex);
+    for (const accountIndex in accounts) {
       if (accounts[accountIndex].name === accountName) {
         accountID = accounts[accountIndex].id;
         accounts.splice(accountIndex, 1);
-        console.log('right after deletion:', accounts);
       }
     }
 
-    console.log('after deletion:', accounts);
     const url = `http://localhost:8080/api/accounts/${accountID}`;
     return axios.delete(url)
       .then(() => {
-        console.log(`Account deleted: ${accountName}`);
         dispatch({
           type: SET_DELETE_ACCOUNT,
           accounts
         });
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
