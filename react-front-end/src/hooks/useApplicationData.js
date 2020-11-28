@@ -8,7 +8,8 @@ import reducer, {
   SET_RENAME_ACCOUNT,
   SET_DELETE_ACCOUNT,
   SET_TRANSACTIONS,
-  SET_NEW_TRANSACTION
+  SET_NEW_TRANSACTION,
+  SET_DASHBOARD
 } from "../reducers/application";
 
 export function useApplicationData() {
@@ -17,7 +18,8 @@ export function useApplicationData() {
     accounts: [],
     categories: [],
     transactions: [],
-    transaction_types: []
+    transaction_types: [],
+    dashboard: true
   });
 
   useEffect(() => {
@@ -49,11 +51,11 @@ export function useApplicationData() {
 
   const addAccount = (user_id, account) => {
     const url = 'http://localhost:8080/api/accounts';
-    console.log('userid', user_id)
-    console.log('acc', account)
+    console.log('userid', user_id);
+    console.log('acc', account);
     axios.post(url, { user_id: user_id, name: account })
       .then((res) => {
-        const id = res.data
+        const id = res.data;
         dispatch({
           type: SET_NEW_ACCOUNT,
           id,
@@ -78,7 +80,6 @@ export function useApplicationData() {
 
   const renameAccount = (accountName, newAccountName) => {
     const accounts = [...state.accounts];
-    console.log('accounts before changing name :', accounts);
     let accountID;
 
     for (const account of accounts) {
@@ -105,49 +106,50 @@ export function useApplicationData() {
   const deleteAccount = accountName => {
     const accounts = [...state.accounts];
     let accountID;
-    console.log('before deletion:', accounts);
 
-    for (let accountIndex in accounts) {
-      console.log('accountIndex :', accountIndex);
+    for (const accountIndex in accounts) {
       if (accounts[accountIndex].name === accountName) {
         accountID = accounts[accountIndex].id;
         accounts.splice(accountIndex, 1);
-        console.log('right after deletion:', accounts);
       }
     }
 
-    console.log('after deletion:', accounts);
     const url = `http://localhost:8080/api/accounts/${accountID}`;
     return axios.delete(url)
       .then(() => {
-        console.log(`Account deleted: ${accountName}`);
         dispatch({
           type: SET_DELETE_ACCOUNT,
           accounts
         });
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
   const editTransaction = (id, payee, amount, categoryID, transactionTypeID) => {
-    const transactions = [...state.transactions];
-
-    for (const transaction of transactions) {
-      if (transaction.id === id) {
-        transaction.payee = payee;
-        transaction.amount_cents = amount * 100;
-        transaction.category_id = categoryID;
-        transaction.transaction_type_id = transactionTypeID;
-      }
-    }
-
     const url = `http://localhost:8080/api/transactions/${id}`;
-    return axios.put(url, { payee, amount, categoryID, transactionTypeID })
+    const amount_cents = amount * 100;
+    return axios.put(url, { payee, amount_cents, categoryID, transactionTypeID })
       .then(() => {
+        const transactions = [...state.transactions];
+
+        for (const transaction of transactions) {
+          if (transaction.id === id) {
+            transaction.payee = payee;
+            transaction.amount_cents = amount_cents;
+            transaction.category_id = categoryID;
+            transaction.transaction_type_id = transactionTypeID;
+          }
+        }
+
         dispatch({
           type: SET_TRANSACTIONS,
           transactions
         });
-        console.log(`Transaction id: ${id} edited payee to: ${payee}, amount to: ${amount * 100}, category_id to: ${categoryID}, transaction_type_id to: ${transactionTypeID}`);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -161,13 +163,15 @@ export function useApplicationData() {
     }
 
     const url = `http://localhost:8080/api/transactions/${id}`;
-    return axios.put(url)
+    return axios.delete(url)
       .then(() => {
         dispatch({
           type: SET_TRANSACTIONS,
           transactions
         });
-        console.log(`Transaction id: ${id} deleted.`);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -183,6 +187,14 @@ export function useApplicationData() {
       .catch((err) => console.log("error is", err));
   };
 
+  const openDashboard = (open) => {
+    dispatch({
+      type: SET_DASHBOARD,
+      ...state,
+      open
+    })
+  };
+
   return {
     state,
     setAccount,
@@ -192,6 +204,7 @@ export function useApplicationData() {
     deleteAccount,
     editTransaction,
     deleteTransaction,
-    addTransactions
+    addTransactions,
+    openDashboard
   };
 }

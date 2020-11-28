@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,9 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from "@material-ui/icons/Delete";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../helpers/selectors';
 import { useApplicationData } from "../../hooks/useApplicationData";
 import Button from '@material-ui/core/Button';
@@ -73,41 +73,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const INFLOW = 1;
+const OUTFLOW = 2;
+
 export default function TransactionTable(props) {
   
   const classes = useStyles();
-  const {
-    editTransaction,
-    deleteTransaction
-  } = useApplicationData();
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("date");
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-
-  
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -117,33 +90,6 @@ export default function TransactionTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  
-
-  
-  const [openTransaction, setOpenTransaction] = useState(false);
-
-  const handleOpenTransaction = () => {
-    setOpenTransaction(true);
-  };
-
-  const handleCloseTransaction = () => {
-    setOpenTransaction(false);
-  };
-
-   // setting state for payee textfield
-   const [inputPayee, setInputPayee] = useState(0);
-   const handleChangeInputPayee = (event) => {
-     setInputPayee(event.target.value);
-   };
-  
-   // function 
-   const transactionName = (transaction) => {
-     console.log("transaction name ", transaction.payee);
-     return transaction.payee
-   }
-  
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
@@ -159,24 +105,22 @@ export default function TransactionTable(props) {
           >
             <TableHead>
               <TableRow>
-              {
-                headCells.map(headCell => 
-                  (
-                    <TableCell key={headCell.id} classes={{head: classes.head}}>{headCell.label}</TableCell>
+                {
+                  headCells.map(headCell =>
+                    (
+                      <TableCell key={headCell.id} classes={{ head: classes.head }}>{headCell.label}</TableCell>
+                    )
                   )
-                )
-              }
+                }
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {props.transactions
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((transaction, index) => {
-                  const isItemSelected = isSelected(transaction.id);
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((transaction, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  
-              
-                  
+                  console.log("t", transaction.payee);
                   return (
                     <TableRow key={transaction.id}>
                       
@@ -234,7 +178,24 @@ export default function TransactionTable(props) {
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
                       <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
                       <TableCell>${getAmountDollars(transaction.amount_cents)}</TableCell>
-                      
+                      <TableCell >
+                        <IconButton
+                          aria-label="edit"
+                          color="primary"
+                          onClick={() => props.editTransaction(transaction.id, "Church's Chicken", 13.37, 1, INFLOW)}
+                        >
+                          <EditIcon
+                            color="primary"
+                          />
+                        </IconButton>
+                        <IconButton
+                          aria-label="delete"
+                          color="secondary"
+                          onClick={() => props.deleteTransaction(transaction.id)}
+                        >
+                          <DeleteIcon color="secondary" />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })}

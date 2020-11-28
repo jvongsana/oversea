@@ -33,7 +33,7 @@ export default function AccountSettings(props) {
           variant="contained"
           color="primary"
           startIcon={<EditIcon />}
-          onClick={() => renameAccount(account, "BMO Credit Card")}
+          onClick={() => renameAccount(account, "TD Credit Card")}
         >
           Edit
         </Button>
