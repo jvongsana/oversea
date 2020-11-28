@@ -43,7 +43,7 @@ function Drawer(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
-
+  console.log('draw acc', props.accounts)
   //handling open/close functionality for popup modal
   const handleClickOpen = () => {
     setOpen(true);

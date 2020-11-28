@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 function AccountListItems(props) {
   const classes = useStyles();
-  console.log('ali', props);
+  console.log('ali transactions', props.transactions);
   return (
     <List>
       <ListItem button key="root" classes={{ root: classes.button }} >

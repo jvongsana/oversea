@@ -19,11 +19,13 @@ const reducer = function (state, action) {
       return {
         ...state,
         accounts:
-          [...state.accounts,
-          {
-            user_id: action.user_id,
-            name: action.account
-          }
+          [
+            ...state.accounts,
+            {
+              id: action.id, 
+              user_id: action.user_id,
+              name: action.account
+            }
           ]
       };
     case SET_RENAME_ACCOUNT:
