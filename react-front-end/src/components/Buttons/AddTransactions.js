@@ -129,7 +129,7 @@ export default function AddTransactions(props) {
               id="select"
             >
               {
-                props.categories.map(category => (<MenuItem value={category.name}>{category.name}</MenuItem>))
+                props.categories.map(category => (<MenuItem  key={category.id} value={category.name}>{category.name}</MenuItem>))
               }
 
             </Select>

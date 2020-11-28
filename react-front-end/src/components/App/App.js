@@ -7,8 +7,9 @@ import { useApplicationData } from "../../hooks/useApplicationData";
 import AccountReport from '../AccountReport/AccountReport';
 import TransactionTable from '../TransactionTable/TransactionTable';
 import AccountSettings from '../AccountSettings/AccountSettings';
-import AddCategory from '../Buttons/AddCategory'
+import AddCategory from '../Buttons/AddCategory';
 import AddTransactions from '../Buttons/AddTransactions';
+import Dashboard from '../Dashboard/Dashboard';
 
 const useStyles = makeStyles({
   container: {
@@ -31,53 +32,59 @@ export default function App(props) {
     addTransactions,
     addAccount,
     renameAccount,
-    deleteAccount
+    deleteAccount,
+    openDashboard
   } = useApplicationData();
 
   const classes = useStyles();
   const transactions = getTransactionsByAccount(state, state.account);
 
   return (
-    <div className={classes.container}>
+    <div key="sidebar" className={classes.container}>
       <Drawer
         transactions={state.transactions}
         accounts={state.accounts}
         account={state.account}
         setAccount={setAccount}
         addAccount={addAccount}
+        openDashboard={openDashboard}
       />
-      <div class="mainContainer">
-        <AccountReport
-          account={state.account}
-          transactions={transactions}
-          categories={state.categories}
-        />
-
-        {/* CATEGORY BUTTON */}
-        <AddCategory 
-          addCategory={addCategory}
-        />
-        {/* TRANSACTION BUTTON */}
-        <AddTransactions 
-          addTransactions={addTransactions}
-          transactions={state.transactions}
-          accounts={state.accounts}
-          account={state.account}
-          categories={state.categories}
-          transaction_types={state.transaction_types}
-        />
-        <TransactionTable
-          account={state.account}
-          transactions={transactions}
-          categories={state.categories}
-          transaction_types={state.transaction_types}
-        />
-        <AccountSettings
-          account={state.account}
-          renameAccount={renameAccount}
-          deleteAccount={deleteAccount}
-        />
-      </div>
+        { state.dashboard 
+          ? <div className="mainContainer">
+              <Dashboard 
+          
+              />
+            </div>
+          : <div className="mainContainer">
+              <AccountReport
+                account={state.account}
+                transactions={transactions}
+                categories={state.categories}
+              />
+              <AddCategory 
+                addCategory={addCategory}
+              />
+              <AddTransactions 
+                addTransactions={addTransactions}
+                transactions={state.transactions}
+                accounts={state.accounts}
+                account={state.account}
+                categories={state.categories}
+                transaction_types={state.transaction_types}
+              />
+              <TransactionTable
+                account={state.account}
+                transactions={transactions}
+                categories={state.categories}
+                transaction_types={state.transaction_types}
+              />
+              <AccountSettings
+                account={state.account}
+                renameAccount={renameAccount}
+                deleteAccount={deleteAccount}
+              />
+            </div>
+        }
     </div>
 
   );

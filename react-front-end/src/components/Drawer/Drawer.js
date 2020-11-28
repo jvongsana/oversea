@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Drawer.scss';
 import { Drawer as Sidebar } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,6 +34,7 @@ function Drawer(props) {
         accounts={props.accounts}
         transactions={props.transactions}
         setAccount={props.setAccount}
+        openDashboard={props.openDashboard}
       />
       <AddAccount
         addAccount={props.addAccount}

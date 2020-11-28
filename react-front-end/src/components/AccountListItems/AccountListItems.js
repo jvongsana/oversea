@@ -24,14 +24,27 @@ const useStyles = makeStyles({
 
 function AccountListItems(props) {
   const classes = useStyles();
-  console.log('ali transactions', props.transactions);
+
   return (
     <List>
-      <ListItem button key="root" classes={{ root: classes.button }} >
+      <ListItem button 
+        key="root" 
+        classes={{ root: classes.button }} 
+        onClick={() => 
+          props.openDashboard(true)
+        }
+      >
         <ListItemText primary="Dashboard" />
       </ListItem>
       {props.accounts.map((account) => (
-        <ListItem button key={account.id} classes={{ root: classes.button }} onClick={() => props.setAccount(account.name)}>
+        <ListItem button 
+          key={account.id} 
+          classes={{ root: classes.button }} 
+          onClick={() => { 
+            props.setAccount(account.name);
+            props.openDashboard(false);
+          }}
+        >
           <ListItemText primary={account.name} />
           <ListItemText primary={getAccountBalance(props.transactions, props.accounts, account.name)} />
         </ListItem>
