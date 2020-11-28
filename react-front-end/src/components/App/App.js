@@ -19,6 +19,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import { Select, MenuItem } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import AddCategory from '../Buttons/AddCategory'
 
 const useStyles = makeStyles({
   container: {
@@ -124,24 +125,24 @@ export default function App(props) {
   };
 
 
-  const handleCloseCategory = () => {
-    setInputTransactionCategory("");
-    setOpenCategory(false);
-  };
+  // const handleCloseCategory = () => {
+  //   setInputTransactionCategory("");
+  //   setOpenCategory(false);
+  // };
 
-  const handleOpenCategory = () => {
-    setOpenCategory(true);
-  };
+  // const handleOpenCategory = () => {
+  //   setOpenCategory(true);
+  // };
 
-  const handleChangeInput = (event) => {
-    setInput(event.target.value);
-  };
+  // const handleChangeInput = (event) => {
+  //   setInput(event.target.value);
+  // };
 
-  const addNewCategory = () => {
-    addCategory(input);
-    setInput("");
-    handleCloseCategory();
-  };
+  // const addNewCategory = () => {
+  //   addCategory(input);
+  //   setInput("");
+  //   handleCloseCategory();
+  // };
 
   const transactions = getTransactionsByAccount(state, state.account);
 
@@ -155,13 +156,6 @@ export default function App(props) {
         setAccount={setAccount}
         addAccount={addAccount}
       />
-      {/* <Container 
-          categories={state.categories}
-          account={state.account}
-          transactions={state.transactions}
-          transaction_type={state.transaction_types}
-          accounts={state.accounts}
-        /> */}
       <div class="mainContainer">
         <AccountReport
           account={state.account}
@@ -170,34 +164,9 @@ export default function App(props) {
         />
 
         {/* CATEGORY BUTTON */}
-        <React.Fragment>
-          <Button variant="outlined" color="primary" onClick={handleOpenCategory} className={classes.button}>
-            Add Categories
-              </Button>
-          <Dialog open={openCategory} onClose={handleCloseCategory} aria-labelledby="form-dialog-title" >
-            <DialogTitle id="form-dialog-title">Add Category</DialogTitle>
-            <DialogContent>
-              <h3>Enter Category</h3>
-              <FormControl component="fieldset" className={classes.formControl}>
-                <TextField
-                  id="outlined-secondary"
-                  label=""
-                  variant="outlined"
-                  color="primary"
-                  onChange={handleChangeInput}
-                />
-              </FormControl>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseCategory} color="primary" className={classes.button}>
-                Cancel
-                  </Button>
-              <Button onClick={addNewCategory} color="primary" className={classes.button}>
-                Add
-                  </Button>
-            </DialogActions>
-          </Dialog>
-        </React.Fragment>
+        <AddCategory 
+          addCategory={addCategory}
+        />
         {/* TRANSACTION BUTTON */}
         <React.Fragment>
           <Button variant="outlined" color="primary" onClick={handleOpenTransaction} className={classes.button}>

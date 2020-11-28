@@ -3,7 +3,7 @@ import './Drawer.scss';
 import { Drawer as Sidebar } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountListItems from '../AccountListItems/AccountListItems';
-import AddAccount from '../Buttons/addAccount'
+import AddAccount from '../Buttons/AddAccount'
 
 const useStyles = makeStyles({
   drawer: {
