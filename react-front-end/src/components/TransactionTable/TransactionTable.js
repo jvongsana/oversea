@@ -132,7 +132,7 @@ export default function TransactionTable(props) {
                         <IconButton
                           aria-label="edit"
                           color="primary"
-                          onClick={() => props.editTransaction(transaction.id, "Oil & Gas", 13.37, 1, INFLOW)}
+                          onClick={() => props.editTransaction(transaction.id, "Church's Chicken", 13.37, 1, INFLOW)}
                         >
                           <EditIcon
                             color="primary"

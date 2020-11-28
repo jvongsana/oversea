@@ -38,10 +38,18 @@ module.exports = db => {
   });
 
   router.put("/transactions/:id", (request, response) => {
-    const { name, category_id, account_id, transaction_type_id, payee, amount_cents, transaction_date } = request.body;
+    const { payee, amount_cents, categoryID, transactionTypeID } = request.body;
     const { id } = request.params;
-    console.log('id :', id);
-    db.query('UPDATE transactions SET name = $1::text, category_id = $2::integer, account_id = $3::integer, transaction_type_id = $4::integer, payee= $5::text, amount_cents = $6::text, transaction_date = $7::date WHERE id = $8::integer', [name, category_id, account_id, transaction_type_id, payee, amount_cents, transaction_date, id])
+    const queryString = `
+      UPDATE transactions 
+      SET 
+        payee = $1::text, 
+        amount_cents = $2::integer, 
+        category_id = $3::integer, 
+        transaction_type_id = $4::integer
+      WHERE id = $5::integer;
+    `;
+    db.query(queryString, [payee, amount_cents, categoryID, transactionTypeID, id])
       .then((res) => {
         response.status(201).send("success");
       })
