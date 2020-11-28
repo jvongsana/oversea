@@ -11,9 +11,11 @@ import FormControl from '@material-ui/core/FormControl';
 const useStyles = makeStyles({
   button: {
     padding: '10px',
+    width: '220px',
     backgroundColor: '#01234c',
-    borderRadius: '10px',
+    borderRadius: '20px',
     textAlign: 'center',
+    margin: '10px 0 10px 10px',
     "&:hover": {
       backgroundColor: '#a6d0ef',
       padding: '10px',

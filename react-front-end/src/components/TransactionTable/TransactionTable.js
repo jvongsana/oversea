@@ -85,7 +85,7 @@ export default function TransactionTable(props) {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((transaction, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
-
+                  console.log("t", transaction.payee)
                   return (
                     <TableRow key={transaction.id}>
                       <TableCell id={labelId}>{transaction.payee}</TableCell>
