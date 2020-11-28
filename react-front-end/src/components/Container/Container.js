@@ -71,7 +71,7 @@
 //   const handleChangeInputPayee = (event) => {
 //     setInputPayee(event.target.value);
 //   }
-  
+
 //   // setting state for radio buttons
 //   const [selection, setSelection] = React.useState();
 //   const updateSelection = (event, value) => {
@@ -83,19 +83,19 @@
 //   const handleChangeCategory = event => {
 //     setInputCategory(event.target.value);
 //   };
-  
+
 //   // state for datepicker
 //   var todayDate = new Date().toISOString().slice(0,10);
 //   const [inputDate, setInputDate] = React.useState(todayDate);
 //   const handleDateChange = event => {
 //     setInputDate(event.target.value);
 //   }
-  
+
 
 //   const Category_id = getCategoryByName(props.categories, inputCategorie);
 //   const transaction_types_id = getTransactionTypeByName(props.transaction_type,selection);
 //   const account_id = getAccountByName(props.accounts,props.account);
-  
+
 
 //   //handling close functionality for popup modal
 
@@ -128,9 +128,9 @@
 
 
 //   // function addNewTransactionButtion() {
-    
+
 //   //   return (
-      
+
 //   //   )
 //   // }
 
@@ -139,7 +139,7 @@
 //   // function addNewCategoryButton() {
 
 //   //   return (
-      
+
 //   //   )
 //   // }
 
@@ -165,7 +165,7 @@
 //         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
 //         <DialogTitle id="form-dialog-title">Add Transactions</DialogTitle>
 //         <DialogContent>
-          
+
 //           <FormControl component="fieldset" className={classes.formControl}>
 //             <h3>Enter Amount</h3>
 //             <TextField
@@ -193,9 +193,9 @@
 //               {
 //                 props.categories.map(category => (<MenuItem value={category.name}>{category.name}</MenuItem>))
 //               }
-              
+
 //             </Select>
-            
+
 //             <h3>Select Transaction Type</h3>
 //             <RadioGroup aria-label="gender" name="gender1"  onChange={updateSelection}>
 //               <FormControlLabel value="Inflow" control={<Radio />} label="Inflow" className={classes.button}/>
@@ -203,7 +203,7 @@
 //             </RadioGroup>
 
 //             <h4>Date</h4>
-            
+
 //             <TextField
 //               id="date"
 //               label="Transaction Date"
