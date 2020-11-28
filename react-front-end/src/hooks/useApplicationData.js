@@ -8,7 +8,8 @@ import reducer, {
   SET_RENAME_ACCOUNT,
   SET_DELETE_ACCOUNT,
   SET_TRANSACTIONS,
-  SET_NEW_TRANSACTION
+  SET_NEW_TRANSACTION,
+  SET_DASHBOARD
 } from "../reducers/application";
 
 export function useApplicationData() {
@@ -17,7 +18,8 @@ export function useApplicationData() {
     accounts: [],
     categories: [],
     transactions: [],
-    transaction_types: []
+    transaction_types: [],
+    dashboard: true
   });
 
   useEffect(() => {
@@ -183,6 +185,14 @@ export function useApplicationData() {
       .catch((err) => console.log("error is", err));
   };
 
+  const openDashboard = (open) => {
+    dispatch({
+      type: SET_DASHBOARD,
+      ...state,
+      open
+    })
+  };
+
   return {
     state,
     setAccount,
@@ -192,6 +202,7 @@ export function useApplicationData() {
     deleteAccount,
     editTransaction,
     deleteTransaction,
-    addTransactions
+    addTransactions,
+    openDashboard
   };
 }
