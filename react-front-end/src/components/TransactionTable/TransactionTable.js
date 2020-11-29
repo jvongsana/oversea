@@ -159,8 +159,6 @@ export default function TransactionTable(props) {
   const EditTransation = () => {
     const Category_id = getCategoryByName(props.categories, inputTransactionCategory);
     const transaction_types_id = getTransactionTypeByName(props.transaction_types, selection);
-    console.log("category id ", Category_id);
-    console.log("transaction id", transaction_types_id);
     props.editTransaction(id, inputPayee, Number(inputAmount), Category_id, transaction_types_id);
     setInputPayee("");
     setInputTransactionCategory("");

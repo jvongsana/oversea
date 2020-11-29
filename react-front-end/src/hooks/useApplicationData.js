@@ -180,7 +180,7 @@ export function useApplicationData() {
           type: SET_TRANSACTIONS,
           transactions
         });
-        console.log("after dispatch");
+        
       })
       .catch(err => {
         console.error(err);
