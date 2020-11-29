@@ -64,7 +64,7 @@ export default function Dashboard(props) {
             value: item.value,
             color: item.bgcolor,
           }))}
-          radius={15}
+          radius={25}
           segmentsShift={0.5}
           labelStyle={{ fontSize: '5px' }}
           label={({ dataEntry }) => (Math.round(dataEntry.percentage) + "%")}
