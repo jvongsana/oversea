@@ -4,7 +4,7 @@ import reducer, {
   SET_ACCOUNT,
   SET_NEW_ACCOUNT,
   SET_APPLICATION_DATA,
-  SET_CATEGORY,
+  SET_CATEGORIES,
   SET_RENAME_ACCOUNT,
   SET_DELETE_ACCOUNT,
   SET_TRANSACTIONS,
@@ -39,7 +39,6 @@ export function useApplicationData() {
     });
   }, []);
 
-
   const setAccount = account => {
     dispatch({
       type: SET_ACCOUNT,
@@ -50,9 +49,7 @@ export function useApplicationData() {
 
 
   const addAccount = (user_id, account) => {
-    const url = 'http://localhost:8080/api/accounts';
-    console.log('userid', user_id);
-    console.log('acc', account);
+    const url = '/api/accounts';
     axios.post(url, { user_id: user_id, name: account })
       .then((res) => {
         const id = res.data;
@@ -63,33 +60,66 @@ export function useApplicationData() {
           account
         });
       })
-      .catch((err) => console.log("error is ", err));
+      .catch(err => {
+        console.error(err);
+      });
   };
 
-  const addCategory = (category) => {
-    let url = 'http://localhost:8080/api/categories';
-    axios.post(url, { name: category })
+  const addCategory = name => {
+    const url = '/api/categories';
+    axios.post(url, { name })
       .then((res) => {
+        const id = res.data;
+        const newCategory = { id, name };
+        const categories = [...state.categories, newCategory];
+
         dispatch({
-          type: SET_CATEGORY,
-          category
+          type: SET_CATEGORIES,
+          categories
         });
       })
-      .catch((err) => console.log("error is ", err));
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
+  const renameCategory = (id, name) => {
+    const url = `/api/categories/${id}`;
+    return axios.post(url, { name })
+      .then(() => {
+        const categories = [...state.categories];
+
+        for (const categoryIndex in categories) {
+          if (categories[categoryIndex].id === id) {
+            categories[categoryIndex] = {
+              ...categories[categoryIndex],
+              name
+            };
+          }
+        }
+
+        dispatch({
+          type: SET_CATEGORIES,
+          categories
+        });
+      });
   };
 
   const renameAccount = (accountName, newAccountName) => {
     const accounts = [...state.accounts];
     let accountID;
 
-    for (const account of accounts) {
-      if (account.name === accountName) {
-        accountID = account.id;
-        account.name = newAccountName;
+    for (const accountIndex in accounts) {
+      if (accounts[accountIndex].name === accountName) {
+        accountID = accounts[accountIndex].id;
+        accounts[accountIndex] = {
+          ...accounts[accountIndex],
+          name: newAccountName
+        };
       }
     }
 
-    const url = `http://localhost:8080/api/accounts/${accountID}`;
+    const url = `/api/accounts/${accountID}`;
     return axios.put(url, { name: newAccountName })
       .then(() => {
         dispatch({
@@ -114,7 +144,7 @@ export function useApplicationData() {
       }
     }
 
-    const url = `http://localhost:8080/api/accounts/${accountID}`;
+    const url = `/api/accounts/${accountID}`;
     return axios.delete(url)
       .then(() => {
         dispatch({
@@ -128,18 +158,21 @@ export function useApplicationData() {
   };
 
   const editTransaction = (id, payee, amount, categoryID, transactionTypeID) => {
-    const url = `http://localhost:8080/api/transactions/${id}`;
+    const url = `/api/transactions/${id}`;
     const amount_cents = amount * 100;
     return axios.put(url, { payee, amount_cents, categoryID, transactionTypeID })
       .then(() => {
         const transactions = [...state.transactions];
 
-        for (const transaction of transactions) {
-          if (transaction.id === id) {
-            transaction.payee = payee;
-            transaction.amount_cents = amount_cents;
-            transaction.category_id = categoryID;
-            transaction.transaction_type_id = transactionTypeID;
+        for (const transactionIndex in transactions) {
+          if (transactions[transactionIndex].id === id) {
+            transactions[transactionIndex] = {
+              ...transactions[transactionIndex],
+              payee,
+              amount_cents,
+              category_id: categoryID,
+              transaction_type_id: transactionTypeID
+            };
           }
         }
 
@@ -157,13 +190,13 @@ export function useApplicationData() {
   const deleteTransaction = id => {
     const transactions = [...state.transactions];
 
-    for (let transactionIndex in transactions) {
+    for (const transactionIndex in transactions) {
       if (transactions[transactionIndex].id === id) {
         transactions.splice(transactionIndex, 1);
       }
     }
 
-    const url = `http://localhost:8080/api/transactions/${id}`;
+    const url = `/api/transactions/${id}`;
     return axios.delete(url)
       .then(() => {
         dispatch({
@@ -177,7 +210,7 @@ export function useApplicationData() {
   };
 
   const addTransactions = (data) => {
-    let url = 'http://localhost:8080/api/transactions';
+    let url = '/api/transactions';
     axios.post(url, data)
       .then((res) => {
         dispatch({
@@ -185,7 +218,9 @@ export function useApplicationData() {
           data
         });
       })
-      .catch((err) => console.log("error is", err));
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const openDashboard = (open) => {
@@ -193,7 +228,7 @@ export function useApplicationData() {
       type: SET_DASHBOARD,
       ...state,
       open
-    })
+    });
   };
 
   return {
@@ -201,6 +236,7 @@ export function useApplicationData() {
     setAccount,
     addAccount,
     addCategory,
+    renameCategory,
     renameAccount,
     deleteAccount,
     editTransaction,

@@ -33,21 +33,22 @@ function AddAccount(props) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(0);
 
-  //handling open/close functionality for popup modal
+  // open pop-up modal
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // close pop-up modal
   const handleClose = () => {
     setOpen(false);
   };
 
-  // setting state for textfield
+  // update textfield with keyboard inputs
   const handleChangeInput = (event) => {
     setInput(event.target.value);
   };
 
-  //function to add account to db
+  // add account to db
   const addNewAccount = () => {
     const user_id = 1;
 
@@ -55,7 +56,6 @@ function AddAccount(props) {
     setInput("");
     handleClose();
   };
-
 
   return (
     <React.Fragment>
@@ -76,12 +76,12 @@ function AddAccount(props) {
             />
           </FormControl>
         </DialogContent>
-        <DialogActions class={classes.root}>
-          <Button onClick={handleClose} color="primary" className={classes.button}>
-            Cancel
-          </Button>
+        <DialogActions>
           <Button onClick={addNewAccount} color="primary" className={classes.button}>
             Add
+          </Button>
+          <Button onClick={handleClose} color="primary" className={classes.button}>
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

@@ -4,6 +4,7 @@ import { Container } from '@material-ui/core/';
 import { PieChart } from 'react-minimal-pie-chart';
 import { makeStyles } from '@material-ui/core/styles';
 import LegendsTable from './LegendsTable/LegendsTable';
+import { getPercentCategoryExpense, getTotalCategorySpending } from '../../helpers/selectors';
 
 const useStyles = makeStyles({
   partial: {
@@ -15,31 +16,55 @@ const useStyles = makeStyles({
   },
   tableAndGraphContainer: {
     display: "flex"
+  },
+  pie: {
+    marginTop: '-10em'
   }
 });
 
-const testData = [
-  { bgcolor: "#6a1b9a", category: "Groceries", value: 60.00 },
-  { bgcolor: "#00695c", category: "Rent", value: 30.50 },
-  { bgcolor: "#ef6c00", category: "Utilities", value: 53.45 },
-];
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
-export default function Dashboard() {
+
+
+export default function Dashboard(props) {
   const classes = useStyles();
 
+  // const expenseCategories = (transaction, categories) {
+  //   for (const transctions )
+  // };
+
+  const accountData = props.categories.map(category => ({ 
+      bgcolor: getRandomColor(),
+      category: category.name,
+      value: Number(getPercentCategoryExpense(props.transactions, category)),
+      total: getTotalCategorySpending(props.transactions, category)
+    }));
+
+    
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
       <h1>Accounts Overview</h1>
       <div className={classes.tableAndGraphContainer}>
-        <LegendsTable />
+        <LegendsTable 
+          accountData={accountData}
+          categories={props.categories}
+        />
         <PieChart
-          data={testData.map(item => ({
+          className={classes.pie}
+          data={accountData.map(item => ({
             title: item.category,
             value: item.value,
             color: item.bgcolor,
           }))}
-          radius={40}
+          radius={25}
           segmentsShift={0.5}
           labelStyle={{ fontSize: '5px' }}
           label={({ dataEntry }) => (Math.round(dataEntry.percentage) + "%")}
