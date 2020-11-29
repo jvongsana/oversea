@@ -8,6 +8,7 @@ const SET_RENAME_ACCOUNT = "SET_RENAME_ACCOUNT";
 const SET_DELETE_ACCOUNT = "SET_DELETE_ACCOUNT";
 const SET_DASHBOARD = "SET_DASHBOARD";
 
+
 const reducer = function (state, action) {
 
   switch (action.type) {
@@ -66,6 +67,7 @@ const reducer = function (state, action) {
         transactions: action.transactions
       };
     case SET_NEW_TRANSACTION:
+   
       return {
         ...state,
         transactions:
@@ -85,6 +87,8 @@ const reducer = function (state, action) {
         ...state,
         dashboard: action.open
       };
+
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`

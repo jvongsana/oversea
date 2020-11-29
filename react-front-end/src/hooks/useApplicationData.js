@@ -145,10 +145,6 @@ export function useApplicationData() {
 
         dispatch({
           type: SET_TRANSACTIONS,
-          payee,
-          amount,
-          categoryID,
-          transactionTypeID,
           transactions
           
         });
