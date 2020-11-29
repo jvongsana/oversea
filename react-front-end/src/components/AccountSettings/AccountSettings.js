@@ -100,7 +100,7 @@ export default function AccountSettings(props) {
               />
             </FormControl>
           </DialogContent>
-          <DialogActions class={classes.root}>
+          <DialogActions className={classes.root}>
             <Button onClick={editAccount} color="primary" className={classes.modalButtons}>
               Edit
             </Button>

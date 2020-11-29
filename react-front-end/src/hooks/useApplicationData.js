@@ -82,10 +82,13 @@ export function useApplicationData() {
     const accounts = [...state.accounts];
     let accountID;
 
-    for (const account of accounts) {
-      if (account.name === accountName) {
-        accountID = account.id;
-        account.name = newAccountName;
+    for (const accountIndex in accounts) {
+      if (accounts[accountIndex].name === accountName) {
+        accountID = accounts[accountIndex].id;
+        accounts[accountIndex] = {
+          ...accounts[accountIndex],
+          name: newAccountName
+        };
       }
     }
 
@@ -134,12 +137,15 @@ export function useApplicationData() {
       .then(() => {
         const transactions = [...state.transactions];
 
-        for (const transaction of transactions) {
-          if (transaction.id === id) {
-            transaction.payee = payee;
-            transaction.amount_cents = amount_cents;
-            transaction.category_id = categoryID;
-            transaction.transaction_type_id = transactionTypeID;
+        for (const transactionIndex in transactions) {
+          if (transactions[transactionIndex].id === id) {
+            transactions[transactionIndex] = {
+              ...transactions[transactionIndex],
+              payee,
+              amount_cents,
+              category_id: categoryID,
+              transaction_type_id: transactionTypeID
+            };
           }
         }
 
@@ -156,7 +162,7 @@ export function useApplicationData() {
   const deleteTransaction = id => {
     const transactions = [...state.transactions];
 
-    for (let transactionIndex in transactions) {
+    for (const transactionIndex in transactions) {
       if (transactions[transactionIndex].id === id) {
         transactions.splice(transactionIndex, 1);
       }
@@ -192,7 +198,7 @@ export function useApplicationData() {
       type: SET_DASHBOARD,
       ...state,
       open
-    })
+    });
   };
 
   return {
