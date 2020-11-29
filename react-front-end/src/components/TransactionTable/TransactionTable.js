@@ -12,7 +12,6 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from "@material-ui/icons/Delete";
 import { getCategoryById, getTransactionTypeById, getAmountDollars } from '../../helpers/selectors';
-import { useApplicationData } from "../../hooks/useApplicationData";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -81,7 +80,7 @@ export default function TransactionTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const {editTransaction, deleteTransaction} = useApplicationData();
+  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -162,7 +161,7 @@ export default function TransactionTable(props) {
     const transaction_types_id = getTransactionTypeByName(props.transaction_types, selection);
     console.log("category id ", Category_id);
     console.log("transaction id", transaction_types_id);
-    editTransaction(id, inputPayee, Number(inputAmount), Category_id, transaction_types_id);
+    props.editTransaction(id, inputPayee, Number(inputAmount), Category_id, transaction_types_id);
     setInputPayee("");
     setInputTransactionCategory("");
     setInputAmount("");
@@ -269,7 +268,7 @@ export default function TransactionTable(props) {
                               />
 
                               <h3>Select Transaction Type</h3>
-                              <RadioGroup aria-label="gender" name="gender1" onChange={updateSelection} >
+                              <RadioGroup aria-label="gender" name="gender1" onChange={updateSelection} defaultValue={selection} >
                                 <FormControlLabel value="Inflow" control={<Radio />} label="Inflow" className={classes.button} />
                                 <FormControlLabel value="Outflow" control={<Radio />} label="Outflow" className={classes.button} />
                               </RadioGroup>
@@ -291,7 +290,7 @@ export default function TransactionTable(props) {
                         <IconButton
                           aria-label="delete"
                           color="secondary"
-                          onClick={() => deleteTransaction(transaction.id)}
+                          onClick={() => props.deleteTransaction(transaction.id)}
                         >
                           <DeleteIcon color="secondary" />
                         </IconButton>
