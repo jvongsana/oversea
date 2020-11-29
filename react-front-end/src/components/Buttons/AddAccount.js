@@ -76,7 +76,7 @@ function AddAccount(props) {
             />
           </FormControl>
         </DialogContent>
-        <DialogActions className={classes.root}>
+        <DialogActions>
           <Button onClick={addNewAccount} color="primary" className={classes.button}>
             Add
           </Button>
