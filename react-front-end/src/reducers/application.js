@@ -62,6 +62,8 @@ const reducer = function (state, action) {
           ]
       };
     case SET_TRANSACTIONS:
+      console.log("transactions action ",action);
+      console.log("state", state);
       return {
         ...state,
         transactions: action.transactions

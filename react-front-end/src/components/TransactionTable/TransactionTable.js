@@ -95,15 +95,12 @@ export default function TransactionTable(props) {
 
   // state for transcation id
   const [id, setID] = useState("");
-  
   const handleID = (event) => {
     setID(event.target.value);
   };
   
-
   // state for payee
   const [inputPayee, setInputPayee] = useState("");
-  
   const handleChangeInputPayee = (event) => {
     setInputPayee(event.target.value);
   };
@@ -146,48 +143,37 @@ export default function TransactionTable(props) {
     const Amount = getAmountDollars(transaction.amount_cents)
     setInputAmount(Amount);
 
-    const formatYmd = date => date.slice(0, 10);
-    let d = transaction.transaction_date;
-    const formatedDate = formatYmd(d);  
+    const formatYmd = date => date.slice(0, 10); 
     setInputDate(formatYmd(transaction.transaction_date));
 
     const transactionTypeName =  getTransactionTypeById(props.transaction_types, transaction.transaction_type_id);
     setSelection(transactionTypeName);
 
     setID(transaction.id);
-
     
   };
 
   const handleCloseTransaction = () => {
-   
     setOpenTransaction(false);
+  };
+
+  //function to edit transaction
+  const EditTransation = () => {
+    const Category_id = getCategoryByName(props.categories, inputTransactionCategory);
+    const transaction_types_id = getTransactionTypeByName(props.transaction_types, selection);
+    console.log("category id ", Category_id);
+    console.log("transaction id", transaction_types_id);
+    editTransaction(id, inputPayee, Number(inputAmount), Category_id, transaction_types_id);
     setInputPayee("");
     setInputTransactionCategory("");
     setInputAmount("");
     setInputDate("");
     setSelection("");
     setID("");
-
-
-  };
-
-
-  
-  const EditTransation = () => {
-    const Category_id = getCategoryByName(props.categories, inputTransactionCategory);
-    const transaction_types_id = getTransactionTypeByName(props.transaction_types, selection);
-    editTransaction(id, inputPayee, Number(inputAmount), Category_id, transaction_types_id);
     handleCloseTransaction();
 
   }
-
  
-  
-  
-    
-
-  
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
@@ -285,12 +271,10 @@ export default function TransactionTable(props) {
                               />
 
                               <h3>Select Transaction Type</h3>
-                              <RadioGroup aria-label="gender" name="gender1" onChange={updateSelection} defaultValue={selection}>
+                              <RadioGroup aria-label="gender" name="gender1" onChange={updateSelection} >
                                 <FormControlLabel value="Inflow" control={<Radio />} label="Inflow" className={classes.button} />
                                 <FormControlLabel value="Outflow" control={<Radio />} label="Outflow" className={classes.button} />
                               </RadioGroup>
-
-                                
                                       
                             </FormControl>
                               
@@ -300,7 +284,7 @@ export default function TransactionTable(props) {
                                 Cancel
                                 </Button>
                               <Button onClick={EditTransation} color="primary" className={classes.button}>
-                                Add
+                                Edit
                               </Button>
                             </DialogActions>
                           </Dialog>

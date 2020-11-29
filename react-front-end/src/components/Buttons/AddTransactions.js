@@ -84,7 +84,7 @@ export default function AddTransactions(props) {
       account_id: account_id,
       transaction_type_id: transaction_types_id,
       payee: inputPayee,
-      amount_cents: Number(inputAmount),
+      amount_cents: Number(inputAmount) * 100,
       transaction_date: inputDate
     };
     props.addTransactions(data);

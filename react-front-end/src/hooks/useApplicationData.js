@@ -146,8 +146,8 @@ export function useApplicationData() {
         dispatch({
           type: SET_TRANSACTIONS,
           transactions
-          
         });
+        console.log("after dispatch");
       })
       .catch(err => {
         console.error(err);
