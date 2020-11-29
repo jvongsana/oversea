@@ -29,6 +29,7 @@ export default function App(props) {
     state,
     setAccount,
     addCategory,
+    renameCategory,
     addTransactions,
     addAccount,
     renameAccount,
@@ -55,8 +56,8 @@ export default function App(props) {
         ? <div className="mainContainer">
           <Dashboard
             transactions={state.transactions}
-            accounts={state.accounts}
             categories={state.categories}
+            renameCategory={renameCategory}
           />
         </div>
         : <div className="mainContainer">

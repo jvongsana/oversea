@@ -85,7 +85,7 @@ export function useApplicationData() {
 
   const renameCategory = (id, name) => {
     const url = `/api/categories/${id}`;
-    return axios.post(url, { name })
+    return axios.put(url, { name })
       .then(() => {
         const categories = [...state.categories];
 
@@ -180,7 +180,7 @@ export function useApplicationData() {
           type: SET_TRANSACTIONS,
           transactions
         });
-        
+
       })
       .catch(err => {
         console.error(err);

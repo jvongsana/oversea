@@ -35,31 +35,33 @@ function getRandomColor() {
 
 export default function Dashboard(props) {
   const classes = useStyles();
+  const { transactions, categories, renameCategory } = props;
 
   // const expenseCategories = (transaction, categories) {
   //   for (const transctions )
   // };
 
-  const accountData = props.categories.map(category => ({ 
-      bgcolor: getRandomColor(),
-      category: category.name,
-      value: Number(getPercentCategoryExpense(props.transactions, category)),
-      total: getTotalCategorySpending(props.transactions, category)
-    }));
+  const pieChartData = categories.map(category => ({
+    id: category.id,
+    bgcolor: getRandomColor(),
+    category: category.name,
+    value: Number(getPercentCategoryExpense(transactions, category)),
+    total: getTotalCategorySpending(transactions, category)
+  }));
 
-    
   return (
     <Container maxWidth="xl" className={classes.partial} >
       <CssBaseline />
       <h1>Accounts Overview</h1>
       <div className={classes.tableAndGraphContainer}>
-        <LegendsTable 
-          accountData={accountData}
-          categories={props.categories}
+        <LegendsTable
+          pieChartData={pieChartData}
+          categories={categories}
+          renameCategory={renameCategory}
         />
         <PieChart
           className={classes.pie}
-          data={accountData.map(item => ({
+          data={pieChartData.map(item => ({
             title: item.category,
             value: item.value,
             color: item.bgcolor,

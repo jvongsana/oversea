@@ -47,7 +47,7 @@ export default function AccountSettings(props) {
   const classes = useStyles();
   const { account, renameAccount, deleteAccount } = props;
   const [open, setOpen] = useState(false);
-  const [input, setInput] = useState(props.account || "");
+  const [input, setInput] = useState(account || "");
 
   // open pop-up modal
   const handleOpen = () => {

@@ -8,19 +8,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from "@material-ui/icons/Delete";
+import EditDeleteCategoryButtons from '../../Buttons/EditDeleteCategory';
 import { getAmountDollars } from '../../../helpers/selectors';
 
 const useStyles = makeStyles({
   table: {
     width: "89%",
     height: ''
-  },
-  actionButtons: {
-    display: "flex",
-    "justify-content": "space-evenly"
   },
   visuallyHidden: {
     border: 0,
@@ -49,6 +43,7 @@ const getTotal = data => {
 
 export default function LegendsTable(props) {
   const classes = useStyles();
+  const { pieChartData, renameCategory } = props;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
@@ -62,8 +57,7 @@ export default function LegendsTable(props) {
     setPage(0);
   };
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, props.categories.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, pieChartData.length - page * rowsPerPage);
 
   return (
     <div className={classes.div}>
@@ -77,31 +71,19 @@ export default function LegendsTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.accountData
+            {pieChartData
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(item => (
                 <TableRow key={item.category}>
                   <TableCell style={{ backgroundColor: item.bgcolor }} />
                   <TableCell align="left">{item.category}</TableCell>
-                  <TableCell align="right">${getAmountDollars(item.total)}</TableCell><TableCell >
-                    <div className={classes.actionButtons} >
-                      <IconButton
-                        aria-label="edit"
-                        color="primary"
-                      // onClick={() => props.editTransaction(transaction.id, "Church's Chicken", 13.37, 1, INFLOW)}
-                      >
-                        <EditIcon
-                          color="primary"
-                        />
-                      </IconButton>
-                      <IconButton
-                        aria-label="delete"
-                        color="secondary"
-                      // onClick={() => props.deleteTransaction(transaction.id)}
-                      >
-                        <DeleteIcon color="secondary" />
-                      </IconButton>
-                    </div>
+                  <TableCell align="right">${getAmountDollars(item.total)}</TableCell>
+                  <TableCell >
+                    <EditDeleteCategoryButtons
+                      id={item.id}
+                      name={item.category}
+                      renameCategory={renameCategory}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
@@ -113,14 +95,14 @@ export default function LegendsTable(props) {
             <TableRow>
               <TableCell />
               <TableCell align="left"><b>TOTAL</b></TableCell>
-              <TableCell align="right">${getTotal(props.accountData)}</TableCell>
+              <TableCell align="right">${getTotal(pieChartData)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <TablePagination
           rowsPerPageOptions={[3, 6]}
           component="div"
-          count={props.categories.length}
+          count={pieChartData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
