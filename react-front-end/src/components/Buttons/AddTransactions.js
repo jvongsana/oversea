@@ -146,7 +146,7 @@ export default function AddTransactions(props) {
               id="date"
               label="Transaction Date"
               type="date"
-              defaultValue={todayDate}
+              defaultValue={inputDate}
               onChange={handleDateChange}
               InputLabelProps={{
                 shrink: true,

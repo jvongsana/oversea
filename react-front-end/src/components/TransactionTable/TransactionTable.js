@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -24,6 +24,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import { Select, MenuItem } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { getCategoryByName, getTransactionTypeByName, getAccountByName } from '../../helpers/selectors';
 
 
 const headCells = [
@@ -81,6 +82,7 @@ export default function TransactionTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const {editTransaction, deleteTransaction} = useApplicationData();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -90,6 +92,102 @@ export default function TransactionTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  // state for transcation id
+  const [id, setID] = useState("");
+  
+  const handleID = (event) => {
+    setID(event.target.value);
+  };
+  
+
+  // state for payee
+  const [inputPayee, setInputPayee] = useState("");
+  
+  const handleChangeInputPayee = (event) => {
+    setInputPayee(event.target.value);
+  };
+
+  // state for select menu for categories
+  const [inputTransactionCategory, setInputTransactionCategory] = React.useState("");
+  const handleChangeCategory = event => {
+    setInputTransactionCategory(event.target.value);
+  };
+
+  // setting state for Amount textfield
+  const [inputAmount, setInputAmount] = useState(0);
+  const handleChangeInputAmount = (event) => {
+    setInputAmount(event.target.value);
+  };
+
+  // state for datepicker
+  const [inputDate, setInputDate] = React.useState();
+  const handleDateChange = event => {
+    setInputDate(event.target.value);
+  };
+
+  // setting state for radio buttons
+  const [selection, setSelection] = React.useState();
+  const updateSelection = (event, value) => {
+    setSelection(event.target.value);
+  };
+  
+  
+
+  
+  const [openTransaction, setOpenTransaction] = useState(false);
+  const handleOpenTransaction = (transaction) => {
+    setOpenTransaction(true);
+    setInputPayee(transaction.payee);
+
+    const categoryName = getCategoryById(props.categories, transaction.category_id);
+    setInputTransactionCategory(categoryName);
+
+    const Amount = getAmountDollars(transaction.amount_cents)
+    setInputAmount(Amount);
+
+    const formatYmd = date => date.slice(0, 10);
+    let d = transaction.transaction_date;
+    const formatedDate = formatYmd(d);  
+    setInputDate(formatYmd(transaction.transaction_date));
+
+    const transactionTypeName =  getTransactionTypeById(props.transaction_types, transaction.transaction_type_id);
+    setSelection(transactionTypeName);
+
+    setID(transaction.id);
+
+    
+  };
+
+  const handleCloseTransaction = () => {
+   
+    setOpenTransaction(false);
+    setInputPayee("");
+    setInputTransactionCategory("");
+    setInputAmount("");
+    setInputDate("");
+    setSelection("");
+    setID("");
+
+
+  };
+
+
+  
+  const EditTransation = () => {
+    const Category_id = getCategoryByName(props.categories, inputTransactionCategory);
+    const transaction_types_id = getTransactionTypeByName(props.transaction_types, selection);
+    editTransaction(id, inputPayee, Number(inputAmount), Category_id, transaction_types_id);
+    handleCloseTransaction();
+
+  }
+
+ 
+  
+  
+    
+
+  
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
@@ -112,7 +210,7 @@ export default function TransactionTable(props) {
                     )
                   )
                 }
-                <TableCell>Actions</TableCell>
+                
               </TableRow>
             </TableHead>
             <TableBody>
@@ -124,43 +222,86 @@ export default function TransactionTable(props) {
                   return (
                     <TableRow key={transaction.id}>
                       
-                      <TableCell >
+                      
+                        <TableCell >
                         <IconButton
                           aria-label="edit"
                           color="primary"
-                          onClick={() => handleOpenTransaction()}
+                          onClick={() => handleOpenTransaction(transaction)}
                         >
                           <EditIcon
                             color="primary"
                           />
                         </IconButton>
-                        
+                      
                     
                           <Dialog open={openTransaction} onClose={handleCloseTransaction} aria-labelledby="form-dialog-title" >
                             <DialogTitle id="form-dialog-title">Edit Transactions</DialogTitle>
                             <DialogContent>
                             <FormControl component="fieldset" className={classes.formControl}>
-                            <h3>{transaction.id}</h3>
-                              
-                                <TextField
-                                  id="outlined-secondary"
-                                  variant="outlined"
-                                  color="primary"
-                                  defaultValue={transactionName(transaction)}
-                                  onChange={handleChangeInputPayee}
-                                />
-                               
+                              <h3>Enter Payee</h3>
+                              <TextField
+                                id="outlined-secondary"
+                                label=""
+                                variant="outlined"
+                                color="primary"
+                                defaultValue={inputPayee}
+                                onChange={handleChangeInputPayee}
+                              />
+                              <h3>Select Category</h3>
+                              <Select
+                                value={inputTransactionCategory}
+                                defaultValue={inputTransactionCategory}
+                                className={classes.inner}
+                                onChange={handleChangeCategory}
+                                id="select"
+                              >
+                                {
+                                  props.categories.map(category => (<MenuItem  key={category.id} value={category.name}>{category.name}</MenuItem>))
+                                }
+
+                              </Select>
+                              <h3>Enter Amount</h3>
+                              <TextField
+                                id="outlined-secondary"
+                                label="upto 2 decimals "
+                                variant="outlined"
+                                color="primary"
+                                defaultValue={inputAmount}
+                                onChange={handleChangeInputAmount}
+                              />
+
+                              <h4>Date</h4>
+
+                              <TextField
+                                id="date"
+                                label="Transaction Date"
+                                type="date"
+                                defaultValue={inputDate}
+                                onChange={handleDateChange}
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                              />
+
+                              <h3>Select Transaction Type</h3>
+                              <RadioGroup aria-label="gender" name="gender1" onChange={updateSelection} defaultValue={selection}>
+                                <FormControlLabel value="Inflow" control={<Radio />} label="Inflow" className={classes.button} />
+                                <FormControlLabel value="Outflow" control={<Radio />} label="Outflow" className={classes.button} />
+                              </RadioGroup>
+
                                 
-                              </FormControl>
+                                      
+                            </FormControl>
                               
                             </DialogContent>
                             <DialogActions>
                               <Button onClick={handleCloseTransaction} color="primary" className={classes.button}>
                                 Cancel
                                 </Button>
-                              <Button onClick={handleCloseTransaction} color="primary" className={classes.button}>
+                              <Button onClick={EditTransation} color="primary" className={classes.button}>
                                 Add
-                                </Button>
+                              </Button>
                             </DialogActions>
                           </Dialog>
 
@@ -178,24 +319,8 @@ export default function TransactionTable(props) {
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
                       <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
                       <TableCell>${getAmountDollars(transaction.amount_cents)}</TableCell>
-                      <TableCell >
-                        <IconButton
-                          aria-label="edit"
-                          color="primary"
-                          onClick={() => props.editTransaction(transaction.id, "Church's Chicken", 13.37, 1, INFLOW)}
-                        >
-                          <EditIcon
-                            color="primary"
-                          />
-                        </IconButton>
-                        <IconButton
-                          aria-label="delete"
-                          color="secondary"
-                          onClick={() => props.deleteTransaction(transaction.id)}
-                        >
-                          <DeleteIcon color="secondary" />
-                        </IconButton>
-                      </TableCell>
+                      
+                      
                     </TableRow>
                   );
                 })}
