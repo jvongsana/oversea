@@ -14,7 +14,7 @@ CREATE TABLE users (
 
 CREATE TABLE accounts (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id),
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL
 );
 
@@ -31,9 +31,9 @@ CREATE TABLE transaction_types (
 
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY NOT NULL,
-  category_id INTEGER REFERENCES categories(id),
-  account_id INTEGER REFERENCES accounts(id),
-  transaction_type_id INTEGER REFERENCES transaction_types(id),
+  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+  account_id INTEGER REFERENCES accounts(id) ON DELETE CASCADE,
+  transaction_type_id INTEGER REFERENCES transaction_types(id) ON DELETE CASCADE,
   payee VARCHAR(255) NOT NULL,
   amount_cents INTEGER NOT NULL,
   transaction_date date
