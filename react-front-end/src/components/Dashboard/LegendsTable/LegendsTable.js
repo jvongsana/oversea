@@ -6,85 +6,127 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from "@material-ui/icons/Delete";
+import { getAmountDollars } from '../../../helpers/selectors';
 
 const useStyles = makeStyles({
   table: {
     width: "89%",
+    height: ''
   },
   actionButtons: {
     display: "flex",
     "justify-content": "space-evenly"
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1
+  },
+  div: {
+    width: '89%'
   }
 });
-
-const testData = [
-  { bgcolor: "#6a1b9a", category: "Groceries", value: 60.00 },
-  { bgcolor: "#00695c", category: "Rent", value: 30.50 },
-  { bgcolor: "#ef6c00", category: "Utilities", value: 53.45 },
-];
 
 const getTotal = data => {
   let total = 0;
   data.forEach(item => {
-    total += item.value;
+    total += item.total;
   });
 
-  return total;
+  return getAmountDollars(total);
 };
 
-export default function Dashboard() {
+export default function LegendsTable(props) {
   const classes = useStyles();
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(3);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, props.categories.length - page * rowsPerPage);
+
   return (
-    <TableContainer className={classes.table} component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center"><b>Color</b></TableCell>
-            <TableCell align="center"><b>Category</b></TableCell>
-            <TableCell align="center"><b>Expense</b></TableCell>
-            <TableCell align="center"><b>Actions</b></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {testData.map(item => (
-            <TableRow key={item.category}>
-              <TableCell style={{ backgroundColor: item.bgcolor }} />
-              <TableCell align="left">{item.category}</TableCell>
-              <TableCell align="right">${item.value.toFixed(2)}</TableCell>
-              <TableCell >
-                <div className={classes.actionButtons} >
-                  <IconButton
-                    aria-label="edit"
-                    color="primary"
-                  // onClick={() => props.editTransaction(transaction.id, "Church's Chicken", 13.37, 1, INFLOW)}
-                  >
-                    <EditIcon
-                      color="primary"
-                    />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete"
-                    color="secondary"
-                  // onClick={() => props.deleteTransaction(transaction.id)}
-                  >
-                    <DeleteIcon color="secondary" />
-                  </IconButton>
-                </div>
-              </TableCell>
+    <div className={classes.div}>
+      <TableContainer className={classes.table} component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center"><b>Color</b></TableCell>
+              <TableCell align="center"><b>Category</b></TableCell>
+              <TableCell align="center"><b>Expense</b></TableCell>
             </TableRow>
-          ))}
-          <TableRow>
-            <TableCell />
-            <TableCell align="left"><b>TOTAL</b></TableCell>
-            <TableCell align="right">${getTotal(testData)}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {props.accountData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(item => (
+                <TableRow key={item.category}>
+                  <TableCell style={{ backgroundColor: item.bgcolor }} />
+                  <TableCell align="left">{item.category}</TableCell>
+                  <TableCell align="right">${getAmountDollars(item.total)}</TableCell><TableCell >
+                    <div className={classes.actionButtons} >
+                      <IconButton
+                        aria-label="edit"
+                        color="primary"
+                      // onClick={() => props.editTransaction(transaction.id, "Church's Chicken", 13.37, 1, INFLOW)}
+                      >
+                        <EditIcon
+                          color="primary"
+                        />
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete"
+                        color="secondary"
+                      // onClick={() => props.deleteTransaction(transaction.id)}
+                      >
+                        <DeleteIcon color="secondary" />
+                      </IconButton>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+            <TableRow>
+              <TableCell />
+              <TableCell align="left"><b>TOTAL</b></TableCell>
+              <TableCell align="right">${getTotal(props.accountData)}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[3, 6]}
+          component="div"
+          count={props.categories.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </TableContainer>
+    </div>
   );
 }

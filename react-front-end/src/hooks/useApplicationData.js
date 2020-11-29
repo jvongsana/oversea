@@ -50,8 +50,6 @@ export function useApplicationData() {
 
   const addAccount = (user_id, account) => {
     const url = '/api/accounts';
-    console.log('userid', user_id);
-    console.log('acc', account);
     axios.post(url, { user_id: user_id, name: account })
       .then((res) => {
         const id = res.data;
