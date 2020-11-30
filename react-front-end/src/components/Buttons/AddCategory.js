@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function addCategory(props) { 
+export default function addCategory(props) {
   const classes = useStyles();
   const [input, setInput] = useState(0);
   const [openCategory, setOpenCategory] = useState(false);
@@ -45,12 +45,12 @@ export default function addCategory(props) {
     setInput("");
     handleCloseCategory();
   };
-  
+
 
   return (
     <React.Fragment>
       <Button variant="outlined" color="primary" onClick={handleOpenCategory} className={classes.button}>
-        Add Categories
+        Add Category
           </Button>
       <Dialog open={openCategory} onClose={handleCloseCategory} aria-labelledby="form-dialog-title" >
         <DialogTitle id="form-dialog-title">Add Category</DialogTitle>
@@ -76,5 +76,5 @@ export default function addCategory(props) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  )
+  );
 }

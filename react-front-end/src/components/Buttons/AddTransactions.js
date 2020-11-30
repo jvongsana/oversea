@@ -98,7 +98,7 @@ export default function AddTransactions(props) {
   return (
     <React.Fragment>
       <Button variant="outlined" color="primary" onClick={handleOpenTransaction} className={classes.button}>
-        Add Transactions
+        Add Transaction
         </Button>
       <Dialog open={openTransaction} onClose={handleCloseTransaction} aria-labelledby="form-dialog-title" >
         <DialogTitle id="form-dialog-title">Add Transactions</DialogTitle>
@@ -129,7 +129,7 @@ export default function AddTransactions(props) {
               id="select"
             >
               {
-                props.categories.map(category => (<MenuItem  key={category.id} value={category.name}>{category.name}</MenuItem>))
+                props.categories.map(category => (<MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>))
               }
 
             </Select>
@@ -164,5 +164,5 @@ export default function AddTransactions(props) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  )
+  );
 }

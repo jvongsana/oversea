@@ -59,6 +59,7 @@ export default function App(props) {
           <Dashboard
             transactions={state.transactions}
             categories={state.categories}
+            addCategory={addCategory}
             renameCategory={renameCategory}
             deleteCategory={deleteCategory}
           />

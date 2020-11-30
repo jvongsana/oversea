@@ -35,7 +35,7 @@ function getRandomColor() {
 
 export default function Dashboard(props) {
   const classes = useStyles();
-  const { transactions, categories, renameCategory, deleteCategory } = props;
+  const { transactions, categories, addCategory, renameCategory, deleteCategory } = props;
 
   // const expenseCategories = (transaction, categories) {
   //   for (const transctions )
@@ -57,6 +57,7 @@ export default function Dashboard(props) {
         <LegendsTable
           pieChartData={pieChartData}
           categories={categories}
+          addCategory={addCategory}
           renameCategory={renameCategory}
           deleteCategory={deleteCategory}
         />

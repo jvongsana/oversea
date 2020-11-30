@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
+import AddCategoryButton from '../../Buttons/AddCategory';
 import EditDeleteCategoryButtons from '../../Buttons/EditDeleteCategory';
 import { getAmountDollars } from '../../../helpers/selectors';
 
@@ -43,7 +44,7 @@ const getTotal = data => {
 
 export default function LegendsTable(props) {
   const classes = useStyles();
-  const { pieChartData, renameCategory, deleteCategory } = props;
+  const { pieChartData, addCategory, renameCategory, deleteCategory } = props;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
@@ -110,6 +111,9 @@ export default function LegendsTable(props) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </TableContainer>
+      <AddCategoryButton
+        addCategory={addCategory}
+      />
     </div>
   );
 }
