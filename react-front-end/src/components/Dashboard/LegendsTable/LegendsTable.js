@@ -69,6 +69,7 @@ export default function LegendsTable(props) {
               <TableCell align="center"><b>Color</b></TableCell>
               <TableCell align="center"><b>Category</b></TableCell>
               <TableCell align="center"><b>Expense</b></TableCell>
+              <TableCell align="center"><b>Actions</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
