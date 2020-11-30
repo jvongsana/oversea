@@ -30,6 +30,7 @@ export default function App(props) {
     setAccount,
     addCategory,
     renameCategory,
+    deleteCategory,
     addTransactions,
     addAccount,
     renameAccount,
@@ -40,6 +41,7 @@ export default function App(props) {
   } = useApplicationData();
 
   const classes = useStyles();
+  console.log('state :', state);
   const transactions = getTransactionsByAccount(state, state.account);
 
   return (
@@ -58,6 +60,7 @@ export default function App(props) {
             transactions={state.transactions}
             categories={state.categories}
             renameCategory={renameCategory}
+            deleteCategory={deleteCategory}
           />
         </div>
         : <div className="mainContainer">

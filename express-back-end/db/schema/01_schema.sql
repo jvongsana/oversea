@@ -20,7 +20,7 @@ CREATE TABLE accounts (
 
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) not null
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE transaction_types (

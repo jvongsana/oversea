@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 
 export default function editDeleteCategory(props) {
   const classes = useStyles();
-  const { id, name, renameCategory } = props;
+  const { id, name, renameCategory, deleteCategory } = props;
   const [input, setInput] = useState(name || "");
   const [open, setOpen] = useState(false);
 
@@ -111,7 +111,7 @@ export default function editDeleteCategory(props) {
       <IconButton
         aria-label="delete"
         color="secondary"
-      // onClick={deleteCategory(id)}
+        onClick={() => deleteCategory(id)}
       >
         <DeleteIcon color="secondary" />
       </IconButton>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -23,7 +23,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import { Select, MenuItem } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { getCategoryByName, getTransactionTypeByName, getAccountByName } from '../../helpers/selectors';
+import { getCategoryByName, getTransactionTypeByName } from '../../helpers/selectors';
 
 
 const headCells = [
@@ -73,14 +73,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const INFLOW = 1;
-
 export default function TransactionTable(props) {
-  
+
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -93,10 +91,7 @@ export default function TransactionTable(props) {
 
   // state for transcation id
   const [id, setID] = useState("");
-  const handleID = (event) => {
-    setID(event.target.value);
-  };
-  
+
   // state for payee
   const [inputPayee, setInputPayee] = useState("");
   const handleChangeInputPayee = (event) => {
@@ -126,10 +121,7 @@ export default function TransactionTable(props) {
   const updateSelection = (event, value) => {
     setSelection(event.target.value);
   };
-  
-  
 
-  
   const [openTransaction, setOpenTransaction] = useState(false);
   const handleOpenTransaction = (transaction) => {
     setOpenTransaction(true);
@@ -138,17 +130,16 @@ export default function TransactionTable(props) {
     const categoryName = getCategoryById(props.categories, transaction.category_id);
     setInputTransactionCategory(categoryName);
 
-    const Amount = getAmountDollars(transaction.amount_cents)
+    const Amount = getAmountDollars(transaction.amount_cents);
     setInputAmount(Amount);
 
-    const formatYmd = date => date.slice(0, 10); 
+    const formatYmd = date => date.slice(0, 10);
     setInputDate(formatYmd(transaction.transaction_date));
 
-    const transactionTypeName =  getTransactionTypeById(props.transaction_types, transaction.transaction_type_id);
+    const transactionTypeName = getTransactionTypeById(props.transaction_types, transaction.transaction_type_id);
     setSelection(transactionTypeName);
 
     setID(transaction.id);
-    
   };
 
   const handleCloseTransaction = () => {
@@ -167,12 +158,9 @@ export default function TransactionTable(props) {
     setSelection("");
     setID("");
     handleCloseTransaction();
+  };
 
-  }
- 
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.transactions.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -192,19 +180,16 @@ export default function TransactionTable(props) {
                     )
                   )
                 }
-                
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.transactions
+              {props.transactions && props.transactions
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((transaction, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow key={transaction.id}>
-                      
-                      
-                        <TableCell >
+                      <TableCell >
                         <IconButton
                           aria-label="edit"
                           color="primary"
@@ -214,11 +199,10 @@ export default function TransactionTable(props) {
                             color="primary"
                           />
                         </IconButton>
-                      
-                    
-                          <Dialog open={openTransaction} onClose={handleCloseTransaction} aria-labelledby="form-dialog-title" >
-                            <DialogTitle id="form-dialog-title">Edit Transactions</DialogTitle>
-                            <DialogContent>
+
+                        <Dialog open={openTransaction} onClose={handleCloseTransaction} aria-labelledby="form-dialog-title" >
+                          <DialogTitle id="form-dialog-title">Edit Transactions</DialogTitle>
+                          <DialogContent>
                             <FormControl component="fieldset" className={classes.formControl}>
                               <h3>Enter Payee</h3>
                               <TextField
@@ -238,7 +222,7 @@ export default function TransactionTable(props) {
                                 id="select"
                               >
                                 {
-                                  props.categories.map(category => (<MenuItem  key={category.id} value={category.name}>{category.name}</MenuItem>))
+                                  props.categories.map(category => (<MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>))
                                 }
 
                               </Select>
@@ -270,21 +254,19 @@ export default function TransactionTable(props) {
                                 <FormControlLabel value="Inflow" control={<Radio />} label="Inflow" className={classes.button} />
                                 <FormControlLabel value="Outflow" control={<Radio />} label="Outflow" className={classes.button} />
                               </RadioGroup>
-                                      
+
                             </FormControl>
-                              
-                            </DialogContent>
-                            <DialogActions>
-                              <Button onClick={handleCloseTransaction} color="primary" className={classes.button}>
-                                Cancel
-                                </Button>
-                              <Button onClick={EditTransation} color="primary" className={classes.button}>
-                                Edit
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
 
-
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={EditTransation} color="primary" className={classes.button}>
+                              Edit
+                            </Button>
+                            <Button onClick={handleCloseTransaction} color="primary" className={classes.button}>
+                              Cancel
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
                         <IconButton
                           aria-label="delete"
                           color="secondary"
@@ -298,8 +280,6 @@ export default function TransactionTable(props) {
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
                       <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
                       <TableCell>${getAmountDollars(transaction.amount_cents)}</TableCell>
-                      
-                      
                     </TableRow>
                   );
                 })}

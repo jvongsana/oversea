@@ -1,5 +1,6 @@
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_ACCOUNT = "SET_ACCOUNT";
+const SET_NEW_CATEGORIES = "SET_NEW_CATEGORIES";
 const SET_CATEGORIES = "SET_CATEGORIES";
 const SET_TRANSACTIONS = "SET_TRANSACTIONS";
 const SET_NEW_ACCOUNT = "SET_NEW_ACCOUNT";
@@ -7,7 +8,6 @@ const SET_NEW_TRANSACTION = "SET_NEW_TRANSACTION";
 const SET_RENAME_ACCOUNT = "SET_RENAME_ACCOUNT";
 const SET_DELETE_ACCOUNT = "SET_DELETE_ACCOUNT";
 const SET_DASHBOARD = "SET_DASHBOARD";
-
 
 const reducer = function (state, action) {
 
@@ -50,20 +50,24 @@ const reducer = function (state, action) {
         transaction_types: action.transaction_types,
         transactions: action.transactions
       };
-    case SET_CATEGORIES:
+    case SET_NEW_CATEGORIES:
       return {
         ...state,
         categories: action.categories
       };
+    case SET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.categories,
+        transactions: action.transactions
+      };
     case SET_TRANSACTIONS:
-      console.log("transactions action ",action);
-      console.log("state", state);
       return {
         ...state,
         transactions: action.transactions
       };
     case SET_NEW_TRANSACTION:
-   
+
       return {
         ...state,
         transactions:
@@ -93,11 +97,11 @@ const reducer = function (state, action) {
 };
 
 export default reducer;
-
 export {
   SET_APPLICATION_DATA,
   SET_ACCOUNT,
   SET_CATEGORIES,
+  SET_NEW_CATEGORIES,
   SET_TRANSACTIONS,
   SET_NEW_ACCOUNT,
   SET_RENAME_ACCOUNT,

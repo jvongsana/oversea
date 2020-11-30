@@ -43,7 +43,7 @@ const getTotal = data => {
 
 export default function LegendsTable(props) {
   const classes = useStyles();
-  const { pieChartData, renameCategory } = props;
+  const { pieChartData, renameCategory, deleteCategory } = props;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
@@ -83,6 +83,7 @@ export default function LegendsTable(props) {
                       id={item.id}
                       name={item.category}
                       renameCategory={renameCategory}
+                      deleteCategory={deleteCategory}
                     />
                   </TableCell>
                 </TableRow>

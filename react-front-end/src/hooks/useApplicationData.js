@@ -4,6 +4,7 @@ import reducer, {
   SET_ACCOUNT,
   SET_NEW_ACCOUNT,
   SET_APPLICATION_DATA,
+  SET_NEW_CATEGORIES,
   SET_CATEGORIES,
   SET_RENAME_ACCOUNT,
   SET_DELETE_ACCOUNT,
@@ -74,7 +75,7 @@ export function useApplicationData() {
         const categories = [...state.categories, newCategory];
 
         dispatch({
-          type: SET_CATEGORIES,
+          type: SET_NEW_CATEGORIES,
           categories
         });
       })
@@ -101,6 +102,34 @@ export function useApplicationData() {
         dispatch({
           type: SET_CATEGORIES,
           categories
+        });
+      });
+  };
+
+  const deleteCategory = id => {
+    const url = `/api/categories/${id}`;
+
+    return axios.delete(url)
+      .then(() => {
+        const categories = [...state.categories];
+        const transactions = [...state.transactions];
+
+        for (const categoryIndex in categories) {
+          if (categories[categoryIndex].id === id) {
+            categories.splice(categoryIndex, 1);
+          }
+        }
+
+        for (const transactionIndex in transactions) {
+          if (transactions[transactionIndex].category_id === id) {
+            transactions.splice(transactionIndex, 1);
+          }
+        }
+
+        dispatch({
+          type: SET_CATEGORIES,
+          categories,
+          transactions
         });
       });
   };
@@ -237,6 +266,7 @@ export function useApplicationData() {
     addAccount,
     addCategory,
     renameCategory,
+    deleteCategory,
     renameAccount,
     deleteAccount,
     editTransaction,
