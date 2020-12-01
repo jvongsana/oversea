@@ -70,17 +70,19 @@ export default function App(props) {
             transactions={transactions}
             categories={state.categories}
           />
-          <AddCategory
-            addCategory={addCategory}
-          />
-          <AddTransactions
-            addTransactions={addTransactions}
-            transactions={state.transactions}
-            accounts={state.accounts}
-            account={state.account}
-            categories={state.categories}
-            transaction_types={state.transaction_types}
-          />
+          <div className="button-section">
+            <AddCategory
+              addCategory={addCategory}
+            />
+            <AddTransactions
+              addTransactions={addTransactions}
+              transactions={state.transactions}
+              accounts={state.accounts}
+              account={state.account}
+              categories={state.categories}
+              transaction_types={state.transaction_types}
+            />
+          </div>
           <TransactionTable
             account={state.account}
             transactions={transactions}

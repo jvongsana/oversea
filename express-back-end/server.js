@@ -20,7 +20,6 @@ const config = {
   databse: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT
-
 };
 
 const db = new pg.Client(config);

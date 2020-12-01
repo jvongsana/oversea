@@ -38,7 +38,6 @@ export default function EditTransaction(props) {
   
   // state for transcation id
   const [id, setID] = useState("");
-  console.log('et',)
   // state for payee
   const [inputPayee, setInputPayee] = useState("");
   const handleChangeInputPayee = (event) => {

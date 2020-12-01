@@ -73,6 +73,7 @@ const reducer = function (state, action) {
         transactions:
           [...state.transactions,
           {
+            id: action.id,
             category_id: action.data.category_id,
             account_id: action.data.account_id,
             transaction_type_id: action.data.transaction_type_id,

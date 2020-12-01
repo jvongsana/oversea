@@ -242,9 +242,11 @@ export function useApplicationData() {
     let url = '/api/transactions';
     axios.post(url, data)
       .then((res) => {
+        const id = res.data;
         dispatch({
           type: SET_NEW_TRANSACTION,
-          data
+          data,
+          id
         });
       })
       .catch(err => {

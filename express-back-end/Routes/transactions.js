@@ -27,7 +27,7 @@ module.exports = db => {
     db.query(queryString, values)
       .then(res => {
         const id = res.rows[0].id;
-        response.status(201).send(`New transaction added with id: ${id}`);
+        response.status(201).send(`${id}`);
       })
       .catch((err) => {
         response.status(500).send(err);
