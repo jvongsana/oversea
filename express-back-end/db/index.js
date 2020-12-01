@@ -1,10 +1,18 @@
-const pg = require("pg");
-const client = new pg.Client({
-  connectionString: "postgres://kqhryvpu:y296u--82f7skYRkQfo2fHz5oiSg3S6L@otto.db.elephantsql.com:5432/kqhryvpu"
-});
+// require('dotenv').config();
+// const pg = require("pg");
+// const config = {
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   databse: process.env.DB_NAME,
+//   password: process.env.DB_PASS,
+//   port: process.env.DB_PORT
 
-client
-  .connect()
-  .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
+// };
 
-module.exports = client;
+// const client = new pg.Client(config);
+
+// client
+//   .connect()
+//   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
+
+// module.exports = client;
