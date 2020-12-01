@@ -1,11 +1,13 @@
 {
   "name": "react-front-end",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "axios": "^0.18.1",
+    "http-proxy-middleware": "^1.0.6",
     "node-sass": "^4.14.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -27,6 +29,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "proxy": "http://localhost:8080/"
+  ]
 }
