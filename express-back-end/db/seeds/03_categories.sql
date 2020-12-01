@@ -1,3 +1,4 @@
-INSERT INTO categories (name) VALUES ('Restaurants');
-INSERT INTO categories (name) VALUES ('Oil & Gas');
 INSERT INTO categories (name) VALUES ('Groceries');
+INSERT INTO categories (name) VALUES ('Rent & Utilities');
+INSERT INTO categories (name) VALUES ('Restaurants & Bars');
+INSERT INTO categories (name) VALUES ('Shopping');
