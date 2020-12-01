@@ -25,10 +25,10 @@ export function useApplicationData() {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`/accounts`),
-      axios.get(`/categories`),
-      axios.get(`/transactions`),
-      axios.get(`/transaction_types`)
+      axios.get(`/api/accounts`),
+      axios.get(`/api/categories`),
+      axios.get(`/api/transactions`),
+      axios.get(`/api/transaction_types`)
     ]).then((all) => {
       dispatch({
         type: SET_APPLICATION_DATA,

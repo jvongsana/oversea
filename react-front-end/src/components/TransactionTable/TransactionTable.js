@@ -90,7 +90,7 @@ export default function TransactionTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.transactions && props.transactions
+              {props.transactions && props.transactions.reverse()
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((transaction, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
@@ -110,7 +110,7 @@ export default function TransactionTable(props) {
                         
                       </TableCell>
                       <TableCell id={labelId}>{transaction.payee}</TableCell>
-                      <TableCell>Date Filler</TableCell>
+                      <TableCell>{transaction.transaction_date.split('T')[0]}</TableCell>
                       <TableCell>{getCategoryById(props.categories, transaction.category_id)}</TableCell>
                       <TableCell>{getTransactionTypeById(props.transaction_types, transaction.transaction_type_id)}</TableCell>
                       <TableCell>${getAmountDollars(transaction.amount_cents)}</TableCell>
