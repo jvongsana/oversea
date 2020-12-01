@@ -1,7 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import './AccountReport.scss';
-import { Container } from '@material-ui/core/';
+import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ProgressBar from './ProgressBars/ProgressBar';
 import { getPercentCategoryExpense } from '../../helpers/selectors';
