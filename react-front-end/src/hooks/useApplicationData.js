@@ -30,7 +30,6 @@ export function useApplicationData() {
       axios.get(`/api/transactions`),
       axios.get(`/api/transaction_types`)
     ]).then((all) => {
-      console.log("from useeffect", all[2].data);
       dispatch({
         type: SET_APPLICATION_DATA,
         accounts: all[0].data,
