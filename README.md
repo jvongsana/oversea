@@ -5,13 +5,13 @@ Oversea is a personal expense tracker web application built with React and Axios
 ## Final Product
 
 ### Dashboard
-!["Screenshot of dashboard"](https://github.com/joshtantan/jungle/blob/master/docs/cart_add_edit.gif) 
+!["Screenshot of dashboard"](https://github.com/jvongsana/oversea/blob/master/docs/previews/dashboard.png) 
 
 ### Browse Accounts
-!["Screengrab of browsing accounts"](https://github.com/joshtantan/jungle/blob/master/docs/cart_add_edit.gif) 
+!["Screengrab of browsing accounts"](https://github.com/jvongsana/oversea/blob/master/docs/previews/browse_accounts.gif) 
 
 ### Add a Transaction
-!["Screengrab of adding a transaction"](https://github.com/joshtantan/jungle/blob/master/docs/cart_add_edit.gif) 
+!["Screengrab of adding a transaction"](https://github.com/jvongsana/oversea/blob/master/docs/previews/add_transaction.gif) 
 
 ## Dependencies
 
