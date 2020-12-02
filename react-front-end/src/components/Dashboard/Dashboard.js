@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   partial: {
     backgroundColor: '#a6d0ef',
     height: '100%',
-    padding: '20em 48px 48px 48px'
+    padding: '48px 48px 48px'
   },
   tableAndGraphContainer: {
     display: "flex"
