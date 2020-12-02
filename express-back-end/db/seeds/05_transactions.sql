@@ -11,9 +11,9 @@ INSERT INTO transactions (payee, amount_cents, transaction_date, category_id, ac
 INSERT INTO transactions (payee, amount_cents, transaction_date, category_id, account_id, transaction_type_id) 
   VALUES ('Internet Bill', 11055, '2020-11-01', 2, 3, 2);
 INSERT INTO transactions (payee, amount_cents, transaction_date, category_id, account_id, transaction_type_id) 
-  VALUES ('Electricity Bill', 4575, '2020-11-01', 1, 3, 2);
+  VALUES ('Electricity Bill', 4575, '2020-11-01', 2, 3, 2);
 INSERT INTO transactions (payee, amount_cents, transaction_date, category_id, account_id, transaction_type_id) 
-  VALUES ('Car Insurance', 50560, '2020-11-02', 1, 3, 2);
+  VALUES ('Car Insurance', 50560, '2020-11-02', 2, 3, 2);
 INSERT INTO transactions (payee, amount_cents, transaction_date, category_id, account_id, transaction_type_id) 
   VALUES ('A&W', 2250, '2020-11-05', 3, 2, 2);
 INSERT INTO transactions (payee, amount_cents, transaction_date, category_id, account_id, transaction_type_id) 
