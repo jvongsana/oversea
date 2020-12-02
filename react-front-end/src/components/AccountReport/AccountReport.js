@@ -1,7 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import './AccountReport.scss';
-import { Container } from '@material-ui/core/';
+import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ProgressBar from './ProgressBars/ProgressBar';
 import { getPercentCategoryExpense } from '../../helpers/selectors';
@@ -10,8 +9,6 @@ const useStyles = makeStyles({
   partial: {
     backgroundColor: '#a6d0ef',
     height: 'auto',
-    width: '83vw',
-    borderRadius: '20px',
     padding: '24px 48px 48px 48px'
   },
   progressBar: {

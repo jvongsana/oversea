@@ -38,10 +38,6 @@ export default function EditTransaction(props) {
   
   // state for transcation id
   const [id, setID] = useState("");
-  const handleID = (event) => {
-    setID(event.target.value);
-  };
-  
   // state for payee
   const [inputPayee, setInputPayee] = useState("");
   const handleChangeInputPayee = (event) => {

@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TransactionTable(props) {
-
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -90,7 +89,7 @@ export default function TransactionTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.transactions && props.transactions
+              {props.transactions && props.transactions.reverse()
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((transaction, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;

@@ -9,10 +9,8 @@ import { getPercentCategoryExpense, getTotalCategorySpending } from '../../helpe
 const useStyles = makeStyles({
   partial: {
     backgroundColor: '#a6d0ef',
-    height: 'auto',
-    width: '83vw',
-    borderRadius: '20px',
-    padding: '24px 48px 48px 48px'
+    height: '100%',
+    padding: '20em 48px 48px 48px'
   },
   tableAndGraphContainer: {
     display: "flex"
@@ -36,10 +34,6 @@ function getRandomColor() {
 export default function Dashboard(props) {
   const classes = useStyles();
   const { transactions, categories, addCategory, renameCategory, deleteCategory } = props;
-
-  // const expenseCategories = (transaction, categories) {
-  //   for (const transctions )
-  // };
 
   const pieChartData = categories.map(category => ({
     id: category.id,

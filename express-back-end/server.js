@@ -2,13 +2,12 @@ require('dotenv').config();
 const Express = require('express');
 const App = Express();
 const BodyParser = require('body-parser');
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const users = require("./Routes/users");
 const accounts = require("./Routes/accounts");
 const categories = require("./Routes/categories");
 const transactions = require("./Routes/transactions");
 const transaction_types = require("./Routes/transaction_types");
-// const db = require("./db");
 const cors = require("cors");
 const helmet = require("helmet");
 const bodyparser = require("body-parser");
@@ -21,7 +20,6 @@ const config = {
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT
-
 };
 
 const db = new pg.Client(config);
@@ -49,6 +47,7 @@ App.use("/api", categories(db));
 const server = App.listen(PORT, () => {
   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
 });
+
 
 
 module.exports= App;
