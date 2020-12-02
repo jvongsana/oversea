@@ -41,7 +41,6 @@ export default function App(props) {
   } = useApplicationData();
 
   const classes = useStyles();
-  console.log('state :', state);
   const transactions = getTransactionsByAccount(state, state.account);
 
   return (
