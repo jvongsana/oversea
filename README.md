@@ -49,3 +49,6 @@ $ npm start
 $ npm run db:reset
 ```
 
+## Project Planning
+
+- [Trello Board](https://trello.com/b/OFyg6rFw/oversea)
