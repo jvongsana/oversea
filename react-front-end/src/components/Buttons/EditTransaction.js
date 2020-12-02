@@ -38,7 +38,10 @@ export default function EditTransaction(props) {
   
   // state for transcation id
   const [id, setID] = useState("");
-  console.log('et',)
+  const handleID = (event) => {
+    setID(event.target.value);
+  };
+  
   // state for payee
   const [inputPayee, setInputPayee] = useState("");
   const handleChangeInputPayee = (event) => {
@@ -68,10 +71,11 @@ export default function EditTransaction(props) {
   const updateSelection = (event, value) => {
     setSelection(event.target.value);
   };
-
+  
   const [openTransaction, setOpenTransaction] = useState(false);
   const handleOpenTransaction = (transaction) => {
-    
+    console.log("transaction =>", transaction);
+
     setOpenTransaction(true);
     setInputPayee(transaction.payee);
 
@@ -88,6 +92,7 @@ export default function EditTransaction(props) {
     setSelection(transactionTypeName);
 
     setID(transaction.id);
+    console.log("set id  =>", id);
   };
 
   const handleCloseTransaction = () => {

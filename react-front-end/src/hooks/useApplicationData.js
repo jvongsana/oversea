@@ -30,6 +30,7 @@ export function useApplicationData() {
       axios.get(`/api/transactions`),
       axios.get(`/api/transaction_types`)
     ]).then((all) => {
+      console.log("from useeffect", all[2].data);
       dispatch({
         type: SET_APPLICATION_DATA,
         accounts: all[0].data,
@@ -242,9 +243,12 @@ export function useApplicationData() {
     let url = '/api/transactions';
     axios.post(url, data)
       .then((res) => {
+        const id = res.data.id;
+        console.log("data ", data);
         dispatch({
           type: SET_NEW_TRANSACTION,
-          data
+          data,
+          id
         });
       })
       .catch(err => {

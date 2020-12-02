@@ -67,7 +67,7 @@ const reducer = function (state, action) {
         transactions: action.transactions
       };
     case SET_NEW_TRANSACTION:
-
+      
       return {
         ...state,
         transactions:
@@ -78,7 +78,8 @@ const reducer = function (state, action) {
             transaction_type_id: action.data.transaction_type_id,
             payee: action.data.payee,
             amount_cents: action.data.amount_cents,
-            transaction_date: action.data.transaction_date
+            transaction_date: action.data.transaction_date,
+            id: action.id 
           }
           ]
       };

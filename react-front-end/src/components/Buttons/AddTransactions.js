@@ -69,7 +69,7 @@ export default function AddTransactions(props) {
     setInputDate(event.target.value);
   };
 
-  const Category_id = getCategoryByName(props.categories, inputTransactionCategory);
+  const category_id = getCategoryByName(props.categories, inputTransactionCategory);
   const transaction_types_id = getTransactionTypeByName(props.transaction_types, selection);
   const account_id = getAccountByName(props.accounts, props.account);
 
@@ -80,7 +80,7 @@ export default function AddTransactions(props) {
 
   const addNewTransaction = () => {
     const data = {
-      category_id: Category_id,
+      category_id: category_id,
       account_id: account_id,
       transaction_type_id: transaction_types_id,
       payee: inputPayee,
