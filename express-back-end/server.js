@@ -32,7 +32,6 @@ App.use(BodyParser.json());
 App.use(Express.static('public'));
 App.use(cors());
 App.use(helmet());
-App.use(bodyparser.json());
 
 App.use("/api", users(db));
 App.use("/api", accounts(db));
