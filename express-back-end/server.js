@@ -13,7 +13,6 @@ const helmet = require("helmet");
 const bodyparser = require("body-parser");
 const pg = require("pg");
 
-//connecting to databse
 const config = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -27,9 +26,7 @@ const db = new pg.Client(config);
 db
   .connect()
   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
-  
 
-// Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
 App.use(Express.static('public'));
@@ -37,7 +34,6 @@ App.use(cors());
 App.use(helmet());
 App.use(bodyparser.json());
 
-//Sample GET route
 App.use("/api", users(db));
 App.use("/api", accounts(db));
 App.use("/api", transactions(db));
@@ -45,9 +41,7 @@ App.use("/api", transaction_types(db));
 App.use("/api", categories(db));
 
 const server = App.listen(PORT, () => {
-  console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
+  console.log(`Server listening on port ${PORT}`);
 });
 
-
-
-module.exports= App;
+module.exports = App;
