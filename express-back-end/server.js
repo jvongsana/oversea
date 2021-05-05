@@ -27,8 +27,8 @@ db
   .connect()
   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
 
-App.use(BodyParser.urlencoded({ extended: false }));
-App.use(BodyParser.json());
+App.use(bodyparser.urlencoded({ extended: false }));
+App.use(bodyparser.json());
 App.use(Express.static('public'));
 App.use(cors());
 App.use(helmet());
