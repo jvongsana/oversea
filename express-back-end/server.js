@@ -2,16 +2,16 @@ require('dotenv').config();
 const Express = require('express');
 const App = Express();
 const BodyParser = require('body-parser');
+const cors = require("cors");
+const helmet = require("helmet");
+const pg = require("pg");
 const PORT = process.env.PORT || 8080;
+
 const users = require("./Routes/users");
 const accounts = require("./Routes/accounts");
 const categories = require("./Routes/categories");
 const transactions = require("./Routes/transactions");
 const transaction_types = require("./Routes/transaction_types");
-const cors = require("cors");
-const helmet = require("helmet");
-const bodyparser = require("body-parser");
-const pg = require("pg");
 
 const config = {
   host: process.env.DB_HOST,
@@ -27,8 +27,8 @@ db
   .connect()
   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
 
-App.use(bodyparser.urlencoded({ extended: false }));
-App.use(bodyparser.json());
+App.use(BodyParser.urlencoded({ extended: false }));
+App.use(BodyParser.json());
 App.use(Express.static('public'));
 App.use(cors());
 App.use(helmet());
